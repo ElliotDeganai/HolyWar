@@ -1,0 +1,7 @@
+
+{
+    "img_field_url": {
+        "blocked": ["../assets/img/blocked-field/5.png", "../assets/img/blocked-field/6.png", "../assets/img/blocked-field/9.png"],
+        "non_blocked": ["../assets/img/blocked-field/3.png", "../assets/img/blocked-field/7.png", "../assets/img/blocked-field/8.png"]
+        }
+}
