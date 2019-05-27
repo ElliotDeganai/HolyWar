@@ -1,0 +1,30 @@
+{
+  "name": "royalfight",
+  "version": "1.0.0",
+  "description": "online battle game",
+  "main": "./dist/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ElliotDeganai/HolyWar.git"
+  },
+  "keywords": [
+    "holywar"
+  ],
+  "author": "elliot deganai",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ElliotDeganai/HolyWar/issues"
+  },
+  "homepage": "https://github.com/ElliotDeganai/HolyWar#readme",
+  "devDependencies": {
+    "browserify": "^16.2.3",
+    "gulp": "^4.0.0",
+    "gulp-typescript": "^5.0.1",
+    "tsify": "^4.0.1",
+    "typescript": "^3.4.5",
+    "vinyl-source-stream": "^2.0.0"
+  }
+}
