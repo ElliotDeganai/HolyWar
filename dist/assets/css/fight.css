@@ -1,0 +1,19 @@
+#fight{
+    width: 800px;
+    height: 600px;
+    border: 2px black solid;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+  }
+
+  .fond{
+
+  }
+
+  .weapon{
+    position: relative;
+    z-index: 20;
+    left: 0;
+    top: 0;
+  }

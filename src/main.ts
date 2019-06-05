@@ -7,3 +7,7 @@ let fieldForGame = LogicField.generateMap(8, 6);
 
 LogicField.paintField(document.getElementById("fight"), fieldForGame);
 
+LogicField.setWeapon(fieldForGame);
+
+LogicField.setCharacters(fieldForGame);
+
