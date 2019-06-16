@@ -1,18 +1,23 @@
 
 import Field from "../../field/model/field";
 import Character from "../../character/model/character";
+import Case from "../../case/model/case";
+import Coord from "../../coord/model/coord";
 
 abstract class LogicCharacter {
 
-    /**
-     * 
-     * @param partyField 
-     * @param nameCharacter 
-     * @param iconUrl 
-     */
-    static paintCharacters(partyField: Field, nameCharacter: string, iconUrl: string): void {
-        let player = new Character(nameCharacter, iconUrl, partyField.getAvailableRandomCase());
-        partyField.listOfCases[player.case.position].isAvailable = false;
+    static paintCharacters(field: Field, nameCharacter: string, iconUrl: string): void {
+        let player = new Character(nameCharacter, iconUrl, field.getAvailableRandomCase());
+
+        if (typeof field.characters[0] !== 'undefined') {
+
+            while(field.characters[0].case.casesAdjacent(player.case)){
+                player = new Character(nameCharacter, iconUrl, field.getAvailableRandomCase());
+            }
+
+          }
+
+        field.cases[player.case.position.x][player.case.position.y].isAvailable = false;
         let imgChar: HTMLImageElement = document.createElement("img");
         let spanElt = document.createElement("span");
 
@@ -25,8 +30,11 @@ abstract class LogicCharacter {
         imgChar.style.left = "15px";
         imgChar.style.zIndex = "10";
         spanElt.appendChild(imgChar);
-        document.getElementById(String(player.case.position)).appendChild(spanElt);
-    }
+        let playerDivElt = player.case.$el;
+        playerDivElt.appendChild(spanElt);
+        player.$el = spanElt;
+        field.characters.push(player);
+    } 
 
 }
 

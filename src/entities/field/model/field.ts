@@ -1,33 +1,42 @@
 import Case from "../../case/model/case";
+import Coord from "../../coord/model/coord";
+import Size from "../../size/model/size";
+import Weapon from "../../weapon/model/weapon";
+import Character from "../../character/model/character";
+import LogicHelper from "../../../helpers/LogicHelper";
+
 
 //This class for the fields
 class Field {
     //field 
-    numberOfCaseWidth: number;
-    numberOfCaseHeight: number;
-    listOfCases: Array<Case>;
+    size: Size;
+    cases: Case[][];
+    weapons: Weapon[];
+    characters: Character[];
+    $el: HTMLElement;
 
     //constructor 
-    constructor(numberOfCaseWidth: number, numberOfCaseHeight: number) {
-        this.numberOfCaseWidth = numberOfCaseWidth;
-        this.numberOfCaseHeight = numberOfCaseHeight;
-        this.listOfCases = new Array<Case>();
+    constructor(x: number, y: number) {
+        this.size = new Size(x,y);
+        this.cases = Array<Array<Case>>();
+        this.weapons = [];
+        this.characters = [];
     }
 
     /**
      * 
      * @param caseToAdd 
      */
-    addCase(caseToAdd: Case): void {
-        this.listOfCases.push(caseToAdd);
+    addCase(caseToAdd: Case[]): void {
+        this.cases.push(caseToAdd);
     }
 
     /**
      * 
      * @param indiceCase 
      */
-    removeCase(indiceCase: number): void{
-        this.listOfCases.splice(indiceCase, 1);
+    removeCase(position: Coord): void{
+        this.cases[position.x].splice(position.y, 1);
     }
 
     /**
@@ -35,11 +44,13 @@ class Field {
      */
     nbrOfBlockedCase(): number {
         let nbrOfBlockedCase: number = 0;
-        for (let brick of this.listOfCases) {
-            if (brick.isBlocked) {
+        for (let row = 0; row < this.size.x; row++) {
+            for (let col = 0; col < this.size.y; col++){
+            if (this.cases[row][col].isBlocked) {
                 nbrOfBlockedCase = nbrOfBlockedCase + 1;
             }
         }
+    }
         return nbrOfBlockedCase;
     }
 
@@ -47,26 +58,55 @@ class Field {
      * 
      */
     getNonBlockedCases(): Array<Case> {
-        let listOfNonBlockedCases: Array<Case> = [];
-        for (let brick of this.listOfCases) {
-            if (!brick.isBlocked) {
-                listOfNonBlockedCases.push(brick);
+        let NonBlockedCases: Array<Case> = [];
+        for (let row = 0; row < this.size.x; row++) {
+            for (let col = 0; col < this.size.y; col++){
+            if (!this.cases[row][col].isBlocked) {
+                let caseToAdd = this.cases[row][col];
+                NonBlockedCases.push(caseToAdd);
             }
         }
-        return listOfNonBlockedCases;
+    }
+        return NonBlockedCases;
+    }
+
+    getBlockedCases(): Array<Case> {
+        let BlockedCases: Array<Case> = [];
+        for (let row = 0; row < this.size.x; row++) {
+            for (let col = 0; col < this.size.y; col++){
+            if (this.cases[row][col].isBlocked) {
+                let caseToAdd = this.cases[row][col];
+                BlockedCases.push(caseToAdd);
+            }
+        }
+    }
+        return BlockedCases;
+    }
+
+    getAvailableCases(): Array<Case> {
+        let availableCases: Array<Case> = [];
+        for (let row = 0; row < this.size.x; row++) {
+            for (let col = 0; col < this.size.y; col++){
+            if (this.cases[row][col].isAvailable && !this.cases[row][col].isBlocked) {
+                let caseToAdd = this.cases[row][col];
+                availableCases.push(caseToAdd);
+            }
+        }
+    }
+        return availableCases;
     }
 
     /**
      * 
      * @param position 
      */
-    getCaseByPosition(position: number): Case {
-        if(this.listOfCases[position] === null || this.listOfCases[position] === undefined){
-            console.log(undefined);
-            console.log(position);
+    getCaseByPosition(position: Coord): Case {
+
+        console.log(this.cases[position.x][position.y]);
+        if (position === undefined){
             return undefined;
         }else{
-            return this.listOfCases[position];
+            return this.cases[position.x][position.y];
         }
     }
 
@@ -74,45 +114,76 @@ class Field {
      * 
      */
     getRandomCase(): Case{
-        let caseRandom = this.getCaseByPosition(Math.round(Math.random()*this.listOfCases.length));
-        let caseToCheck = document.getElementById(String(caseRandom.position));
+        let randomX = LogicHelper.getRandomDimension(this.size.x-1);
+        let randomY = LogicHelper.getRandomDimension(this.size.y-1);
+
+        let randomCoord = new Coord(randomX, randomY);
+
+        let caseRandom = this.getCaseByPosition(randomCoord);
+        let caseToCheck = document.getElementById(caseRandom.positionString);
         while(caseToCheck === null || caseToCheck === undefined || caseRandom === undefined || caseRandom === null){
-            caseRandom = this.getCaseByPosition(Math.round(Math.random()*this.listOfCases.length));
+
+            let randomX = LogicHelper.getRandomDimension(this.size.x-1);
+            let randomY = LogicHelper.getRandomDimension(this.size.y-1);
+    
+            let randomCoord = new Coord(randomX, randomY);
+
+            caseRandom = this.getCaseByPosition(randomCoord);
          }
         return caseRandom;
     }
 
-    /**
-     * 
-     */
+  
     getNonBlockedRandomCase(): Case{
-        console.log((this.listOfCases.length-1));
-        let caseRandom = this.listOfCases[Math.round(Math.random()*(this.listOfCases.length-1))];
-        while(document.getElementById(String(caseRandom.position)) === null || document.getElementById(String(caseRandom.position)) === undefined || caseRandom === undefined || caseRandom === null || caseRandom.isBlocked === true){
-            caseRandom = this.listOfCases[Math.round(Math.random()*(this.listOfCases.length-1))];
-         }
-        return caseRandom;
+
+        let nonBlockedCases = this.getNonBlockedCases();
+
+        let indice = LogicHelper.getRandomDimension(nonBlockedCases.length-1);
+
+        let nonBlockedRandomCase = nonBlockedCases[indice];
+
+        return nonBlockedRandomCase;
     }
 
-    /**
-     * 
-     */
+
     getAvailableRandomCase(): Case{
-        console.log((this.listOfCases.length-1));
-        let caseRandom = this.listOfCases[Math.round(Math.random()*(this.listOfCases.length-1))];
-        while(document.getElementById(String(caseRandom.position)) === null || document.getElementById(String(caseRandom.position)) === undefined || caseRandom === undefined || caseRandom === null || caseRandom.isBlocked === true || caseRandom.isAvailable === false){
-            caseRandom = this.listOfCases[Math.round(Math.random()*(this.listOfCases.length-1))];
-         }
-        return caseRandom;
+        let availableCases = this.getAvailableCases();
+
+        let indice = LogicHelper.getRandomDimension(availableCases.length-1);
+
+        let availableRandomCase = availableCases[indice];
+
+        return availableRandomCase;
+    } 
+
+
+    duplicateListOfCase(): Case[]{
+        let casesTemp = Array<Case>();
+        for (let row=0; row < this.size.x; row++) {
+            for(let col=0; col < this.size.y; col++){
+           let caseToAdd = this.cases[row][col];
+           casesTemp.push(caseToAdd);
+        }
+    }
+        return casesTemp;
     }
 
-    duplicateListOfCase(): Array<Case>{
-        let listOfCasesTemp: Array<Case> = [];
-        for (let CaseTemp of this.listOfCases) {
-           let caseToAdd = CaseTemp;
-           listOfCasesTemp.push(caseToAdd);
+    unsortCases(): void{
+        let casesTemp = this.duplicateListOfCase();
+
+        for(let col = 0; col < this.size.x; col++){
+            for(let row = 0; row < this.size.y; row++){
+
+                let indice = LogicHelper.getRandomDimension(casesTemp.length-1);
+
+                this.cases[col][row] = casesTemp[indice];
+                this.cases[col][row].position.x = col;
+                this.cases[col][row].position.y = row;
+                this.cases[col][row].positionString = String(col)+String(row);
+                casesTemp.splice(indice,1);
+
+            }
         }
-        return listOfCasesTemp;
     }
 }
 

@@ -13,24 +13,24 @@ abstract class CaseLogic {
      * @param elementToFill 
      * @param nbrOfRemainingCases 
      */
-    static paintCase(partyField: Field, listOfCasesTemp: Array<Case>, elementToFill: HTMLElement, nbrOfRemainingCases: number): void {
+    static paintCase(partyField: Field, caseToPaint: Case, elementToFill: HTMLElement, row: number, col: number): void {
         let divElt = document.createElement("div");
         divElt.style.display = "inline";
-        divElt.style.width = (Math.round(100 / partyField.numberOfCaseWidth)) - 1 + "%";
-        divElt.style.height = (Math.round(100 / partyField.numberOfCaseHeight)) - 1 + "%";
+        divElt.style.width = (Math.round(100 / partyField.size.y)) - 1 + "%";
+        divElt.style.height = (Math.round(100 / partyField.size.x)) - 1 + "%";
         divElt.style.position = "relative";
         let elementToAdd: HTMLImageElement = document.createElement("img");
-        let indiceCaseFullList: number = Math.round(Math.random() * nbrOfRemainingCases);
-        elementToAdd.src = listOfCasesTemp[indiceCaseFullList].imgUrl;
+
+
+        elementToAdd.src = caseToPaint.imgUrl;
         elementToAdd.classList.add("fond");
         elementToAdd.classList.add("img-responsive");
-        elementToAdd.style.width = (Math.round(100 / partyField.numberOfCaseWidth)) - 1 + "%";
-        elementToAdd.style.height = (Math.round(100 / partyField.numberOfCaseHeight)) - 1 + "%";
+        elementToAdd.style.width = (Math.round(100 / partyField.size.y)) - 1 + "%";
+        elementToAdd.style.height = (Math.round(100 / partyField.size.x)) - 1 + "%";
         divElt.appendChild(elementToAdd);
-        divElt.id = String(listOfCasesTemp[indiceCaseFullList].position);
+        divElt.id = String(caseToPaint.positionString);
         elementToFill.appendChild(divElt);
-        listOfCasesTemp.splice(indiceCaseFullList, 1);
-        console.log(listOfCasesTemp.length);
+        partyField.cases[caseToPaint.position.x][caseToPaint.position.y].$el = divElt;
     }
 
 

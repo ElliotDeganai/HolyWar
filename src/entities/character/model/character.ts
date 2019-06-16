@@ -10,6 +10,7 @@ class Character {
    level: number;
    case: Case;
    weapon: Weapon;
+   $el: HTMLElement;
 
    //constructor 
    constructor(name: string, iconUrl: string, startCase: Case) {

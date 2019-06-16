@@ -1,19 +1,10 @@
-#fight{
-    width: 800px;
-    height: 600px;
-    border: 2px black solid;
-    overflow: hidden;
-    position: relative;
-    text-align: center;
-  }
+body {
+  background-color: aqua; }
 
-  .fond{
-
-  }
-
-  .weapon{
-    position: relative;
-    z-index: 20;
-    left: 0;
-    top: 0;
-  }
+#fight {
+  width: 800px;
+  height: 600px;
+  border: 2px black solid;
+  overflow: hidden;
+  position: relative;
+  text-align: center; }
