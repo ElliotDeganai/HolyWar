@@ -47,7 +47,7 @@ class Character {
       if(this.isCaseReachable(caseToMove)){
          
       this.case = caseToMove;
-      document.getElementById(this.case.positionString).removeChild(this.$el);
+      this.$el.remove();
       LogicCharacter.paintCharacters(field, this, caseToMove);
 
       }else{

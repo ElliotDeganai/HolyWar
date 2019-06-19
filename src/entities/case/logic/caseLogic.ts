@@ -15,7 +15,6 @@ abstract class CaseLogic {
      */
     static paintCase(partyField: Field, caseToPaint: Case, elementToFill: HTMLElement, row: number, col: number): void {
         let divElt = document.createElement("div");
-        divElt.style.display = "inline";
         divElt.style.width = (Math.round(100 / partyField.size.y)) - 1 + "%";
         divElt.style.height = (Math.round(100 / partyField.size.x)) - 1 + "%";
         divElt.style.position = "relative";
