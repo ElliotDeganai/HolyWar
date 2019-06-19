@@ -1,13 +1,15 @@
 import Field from "../../field/model/field";
 import Weapon from "../../weapon/model/weapon";
+import Case from "../../case/model/case";
 
 
 abstract class LogicWeapon {
 
 
-    static paintWeapon(field: Field,name: string, iconWeapon: string): void {
+    static paintStartWeapon(field: Field,name: string, iconWeapon: string): void {
         let caseWeapon = field.getAvailableRandomCase();
-        let weapon = new Weapon(name, 5, iconWeapon, caseWeapon);
+        let weapon = new Weapon(name, 5, iconWeapon);
+        caseWeapon.addWeapon(field, weapon);
         let imgWeapon: HTMLImageElement = document.createElement("img");
         let spanElt = document.createElement("span");
         spanElt.classList.add("weapon");
@@ -20,9 +22,26 @@ abstract class LogicWeapon {
         spanElt.appendChild(imgWeapon);
         document.getElementById(caseWeapon.positionString).appendChild(spanElt);
         field.cases[caseWeapon.position.x][caseWeapon.position.y].isAvailable = false;
+        field.cases[caseWeapon.position.x][caseWeapon.position.y].weapon = weapon;
         weapon.$el = spanElt;
         field.weapons.push(weapon);
-    } 
+    }
+    
+    static paintWeapon(caseWeapon: Case, weapon: Weapon, field: Field): void {
+
+        let imgWeapon: HTMLImageElement = document.createElement("img");
+        let spanElt = document.createElement("span");
+        spanElt.classList.add("weapon");
+        imgWeapon.src = weapon.iconUrl;
+        imgWeapon.style.maxHeight = "100%";
+        imgWeapon.style.position = "absolute";
+        imgWeapon.style.top = "0";
+        imgWeapon.style.left = "0";
+        imgWeapon.style.zIndex = "20";
+        spanElt.appendChild(imgWeapon);
+        document.getElementById(caseWeapon.positionString).appendChild(spanElt);
+        weapon.$el = spanElt;
+    }
 }
 
 export default LogicWeapon;

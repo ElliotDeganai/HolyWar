@@ -19,15 +19,28 @@ abstract class CaseLogic {
         divElt.style.width = (Math.round(100 / partyField.size.y)) - 1 + "%";
         divElt.style.height = (Math.round(100 / partyField.size.x)) - 1 + "%";
         divElt.style.position = "relative";
-        let elementToAdd: HTMLImageElement = document.createElement("img");
 
+        switch (caseToPaint.isBlocked) {
+            case false:
+                divElt.classList.add("case");
+                break;
+
+            case true:
+                divElt.classList.add("case");
+                divElt.classList.add("blocked");
+                break;
+        }
+
+
+
+        let elementToAdd: HTMLImageElement = document.createElement("img");
 
         elementToAdd.src = caseToPaint.imgUrl;
         elementToAdd.classList.add("fond");
         elementToAdd.classList.add("img-responsive");
         elementToAdd.style.width = (Math.round(100 / partyField.size.y)) - 1 + "%";
         elementToAdd.style.height = (Math.round(100 / partyField.size.x)) - 1 + "%";
-        divElt.appendChild(elementToAdd);
+        //divElt.appendChild(elementToAdd);
         divElt.id = String(caseToPaint.positionString);
         elementToFill.appendChild(divElt);
         partyField.cases[caseToPaint.position.x][caseToPaint.position.y].$el = divElt;

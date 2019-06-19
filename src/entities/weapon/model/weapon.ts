@@ -10,11 +10,10 @@ class Weapon {
    $el: HTMLElement;
 
    //constructor 
-   constructor(name: string, damage: number, iconUrl: string, weaponCase: Case) {
+   constructor(name: string, damage: number, iconUrl: string) {
       this.name = name;
       this.damage = damage;
       this.iconUrl = iconUrl;
-      this.case = weaponCase;
    }
 
 

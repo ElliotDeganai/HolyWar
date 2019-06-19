@@ -11,3 +11,17 @@ body {
     text-align: center;
   }
 
+  .case {
+    position: relative;
+    flex-grow: 1;
+    display: flex;
+    background-image: url('/assets/img/normal-field/tile-2D.png');
+    background-size: cover;
+    background-position: 50% 50%;
+    box-shadow: 0 0 1px green;
+
+    &.blocked {
+      background-image: url('/assets/img/blocked-field/tile-2D.png');
+    }
+}
+

@@ -1,5 +1,8 @@
 import CaseLogic from "../../case/logic/caseLogic";
 import Coord from "../../coord/model/coord";
+import Weapon from "../../weapon/model/weapon";
+import LogicWeapon from "../../weapon/logic/logicWeapon";
+import Field from "../../field/model/field";
 
 class Case {
     //field 
@@ -9,6 +12,7 @@ class Case {
     position: Coord;
     positionString: string;
     type: string;
+    weapon: Weapon;
     $el: HTMLElement;
 
     //constructor 
@@ -28,6 +32,7 @@ class Case {
         this.isAvailable = isAvailable;
         this.position = position;
         this.positionString = String(position.x) + String(position.y);
+        this.weapon = null;
     }
 
     casesAdjacent(caseToCheck: Case): Boolean{
@@ -36,6 +41,25 @@ class Case {
         }else{
             return false;
         }
+    }
+
+    hasWeapon(){
+        if(!this.weapon === null){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    removeWeapon(){
+        this.weapon = null;
+        document.getElementById(this.positionString).removeChild(this.weapon.$el);
+
+    }
+
+    addWeapon(field: Field, weapon: Weapon){
+        this.weapon = weapon;
+        LogicWeapon.paintWeapon(this, weapon, field);
     }
 
 }
