@@ -30,14 +30,20 @@ class Character {
       let caseWeapon = this.case;
       let weaponToDrop = this.weapon;
       this.weapon = this.case.weapon;
-      LogicWeapon.paintWeapon(caseWeapon, weaponToDrop, field);
+      //LogicWeapon.paintWeapon(caseWeapon, weaponToDrop, field);
    }
 
    isCaseReachable(caseToReach: Case){
       let deltaX = Math.abs(caseToReach.position.x - this.case.position.x);
       let deltaY = Math.abs(caseToReach.position.y - this.case.position.y);
-      if( deltaX > 3 ||  deltaY > 3){
+      if( deltaX <= 3 &&  deltaY <= 3 ){
+         if(caseToReach.position.x === this.case.position.x || caseToReach.position.y === this.case.position.y){
+         if(!caseToReach.isBlocked){
          return true;
+         }else{
+            return false
+         }
+      }
       }else{
          return false;
       }
@@ -45,11 +51,18 @@ class Character {
 
    moveTo(field: Field, caseToMove: Case){
       if(this.isCaseReachable(caseToMove)){
+
+         let nextPlayerArray = field.characters.filter((nextPlayer) => {
+            return (nextPlayer !== this.case.gameManager.playerTour);
+          });
+
+          let nextPlayer = nextPlayerArray[0];
          
       this.case = caseToMove;
       this.$el.remove();
       LogicCharacter.paintCharacters(field, this, caseToMove);
-
+      this.case.gameManager.playerTour = nextPlayer;
+      console.log('The player ' + this.case.gameManager.playerTour.name + ' can play.');
       }else{
          console.log("This place is unreachable!!");
       }

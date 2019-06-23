@@ -1,13 +1,26 @@
 body {
   background-color: aqua; }
 
+#arena {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: gray;
+  height: 800px;
+  width: 800px; }
+
 #fight {
-  width: 800px;
-  height: 600px;
+  width: 680px;
+  height: 680px;
   border: 2px black solid;
   overflow: hidden;
-  position: relative;
-  text-align: center; }
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  top: 20px;
+  bottom: 20px; }
 
 .case {
   position: relative;
@@ -19,3 +32,11 @@ body {
   box-shadow: 0 0 1px green; }
   .case.blocked {
     background-image: url("/assets/img/blocked-field/tile-2D.png"); }
+  .case.case-reachable {
+    filter: contrast(200%); }
+  .case:not(.blocked):hover {
+    filter: brightness(150%); }
+
+.row-map {
+  display: flex;
+  align-content: stretch; }

@@ -26,7 +26,7 @@ abstract class LogicCharacter {
         imgChar.style.maxWidth = "100%";
         imgChar.style.maxHeight = "80px";
         imgChar.style.position = "absolute";
-        imgChar.style.top = "-25px";
+        imgChar.style.top = "0";
         imgChar.style.left = "15px";
         imgChar.style.zIndex = "10";
         spanElt.appendChild(imgChar);
@@ -47,7 +47,7 @@ abstract class LogicCharacter {
         imgChar.style.maxWidth = "100%";
         imgChar.style.maxHeight = "80px";
         imgChar.style.position = "absolute";
-        imgChar.style.top = "-25px";
+        imgChar.style.top = "0px";
         imgChar.style.left = "15px";
         imgChar.style.zIndex = "10";
         spanElt.appendChild(imgChar);

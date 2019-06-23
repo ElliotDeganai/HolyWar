@@ -185,6 +185,17 @@ class Field {
             }
         }
     }
+
+    getCaseByElt(el: Element): Case{
+        for(let rowCases of this.cases){
+            for(let caseToGet of rowCases){
+                if(caseToGet.$el === el){
+                    return caseToGet;
+                
+                }
+            }
+        }
+    }
 }
 
 export default Field;

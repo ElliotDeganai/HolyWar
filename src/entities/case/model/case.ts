@@ -3,6 +3,8 @@ import Coord from "../../coord/model/coord";
 import Weapon from "../../weapon/model/weapon";
 import LogicWeapon from "../../weapon/logic/logicWeapon";
 import Field from "../../field/model/field";
+import Character from "../../character/model/character";
+import GameManager from "../../gameManager";
 
 class Case {
     //field 
@@ -13,6 +15,7 @@ class Case {
     positionString: string;
     type: string;
     weapon: Weapon;
+    gameManager: GameManager;
     $el: HTMLElement;
 
     //constructor 
@@ -51,9 +54,11 @@ class Case {
         }
     }
 
+
+
     removeWeapon(){
         this.weapon = null;
-        document.getElementById(this.positionString).removeChild(this.weapon.$el);
+        this.weapon.$el.remove();
 
     }
 
@@ -62,6 +67,46 @@ class Case {
         LogicWeapon.paintWeapon(this, weapon, field);
     }
 
+    setEl(element: HTMLElement): HTMLElement {
+        this.$el = element;
+
+        this.$el.onclick = (event: MouseEvent) => {
+            this.onClick(event);
+        };
+
+        return this.$el;
+    }
+
+    onClick(event: MouseEvent): void{
+ 
+            let casesElements = document.getElementsByClassName('case');
+            let field = this.gameManager.field;
+
+            for (let i = 0; i < casesElements.length; i++) {
+                let casesElement = (<HTMLElement>casesElements[i]);
+                casesElement.classList.remove('case-reachable');
+            }
+            
+            var el = event.target||event.srcElement;
+            let caseToGo = field.cases[this.position.x][this.position.y];
+
+            // Do nothing if player select a Block Case
+            if (caseToGo.isBlocked) {
+                this.gameManager.showReachableCase();
+                return;
+            }
+            //we get the element target
+            
+            this.gameManager.playerTour.moveTo(this.gameManager.field, caseToGo);
+
+            
+            this.gameManager.showReachableCase();
+
+    }
+
+
 }
+
+
 
 export default Case;
