@@ -18,7 +18,7 @@ body {
     height: 680px;
     border: 2px black solid;
     overflow: hidden;
-    position: absolute;
+    position: relative;
     left: 20px;
     right: 20px;
     top: 20px;
@@ -32,7 +32,7 @@ body {
     background-image: url('/assets/img/normal-field/tile-2D.png');
     background-size: cover;
     background-position: 50% 50%;
-    box-shadow: 0 0 1px green;
+    //box-shadow: 0 0 1px green;
 
     &.blocked {
       background-image: url('/assets/img/blocked-field/tile-2D.png');
@@ -40,6 +40,8 @@ body {
 
     &.case-reachable {
       filter: contrast(200%);
+      transition-property: filter;
+      transition-delay: 1.5s;
     }
 
     &:not(.blocked):hover {
@@ -50,5 +52,21 @@ body {
 .row-map{
   display: flex;
   align-content: stretch;
+}
+
+#delay {
+  font-size: 14px;
+  transition-property: font-size;
+  transition-duration: 4s;
+  transition-delay: 2s;
+}
+
+#delay:hover {
+  font-size: 36px;
+}
+
+.player{
+  transition-property: left top;
+  transition-duration: 2s;
 }
 

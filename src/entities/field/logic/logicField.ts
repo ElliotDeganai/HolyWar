@@ -54,7 +54,7 @@ abstract class LogicField {
          rowElt.style.position = "relative";
          rowElt.classList.add("row-map");
          for (let row = 0; row < field.size.y; row++){
-         let divElt = CaseLogic.paintCase(field, field.cases[col][row], elementToFill, row, col);
+         let divElt = CaseLogic.paintCase(field.cases[col][row]);
          rowElt.appendChild(divElt);
       }
       elementToFill.appendChild(rowElt);

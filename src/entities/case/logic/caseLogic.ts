@@ -13,7 +13,7 @@ abstract class CaseLogic {
      * @param elementToFill 
      * @param nbrOfRemainingCases 
      */
-    static paintCase(partyField: Field, caseToPaint: Case, elementToFill: HTMLElement, row: number, col: number): HTMLDivElement {
+    static paintCase(caseToPaint: Case): HTMLDivElement {
         let divElt = document.createElement("div");
         divElt.style.position = "relative";
 

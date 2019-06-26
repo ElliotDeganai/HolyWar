@@ -47,7 +47,7 @@ class Case {
     }
 
     hasWeapon(){
-        if(!this.weapon === null){
+        if(this.weapon !== null){
             return true;
         }else{
             return false;
