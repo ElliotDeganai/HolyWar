@@ -50,7 +50,7 @@ abstract class LogicField {
       
       for (let col = 0; col < field.size.x; col++) {
          let rowElt = document.createElement("div");
-         rowElt.style.height = (Math.round(100 / field.size.x))+ "%";
+         rowElt.style.height = (100 / field.size.x).toFixed(2)+ "%";
          rowElt.style.position = "relative";
          rowElt.classList.add("row-map");
          for (let row = 0; row < field.size.y; row++){
@@ -64,11 +64,11 @@ abstract class LogicField {
 
     static setWeapon(field: Field): void {
        for (let i = 0; i < 2; i++) {
-         let weapon = new Weapon("Mjolnir"+i, 10, "/assets/img/weapon/weapon1.png");
+         let weapon = new Weapon("Mjolnir"+i, 10+i, "/assets/img/weapon/weapon1.png");
          field.weapons.push(weapon);
        }
        for (let i = 0; i < 2; i++) {
-         let weapon = new Weapon("Stormbreaker"+i, 10, "/assets/img/weapon/weapon2.png");
+         let weapon = new Weapon("Stormbreaker"+i, 20+i, "/assets/img/weapon/weapon1.png");
          field.weapons.push(weapon);
        }
        for(let weapon of field.weapons){

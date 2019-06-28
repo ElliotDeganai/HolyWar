@@ -14,7 +14,7 @@ abstract class LogicCharacter {
 
         if (typeof field.characters[0] !== 'undefined') {
 
-            while(field.characters[0].case.casesAdjacent(player.case)){
+            while(field.characters[0].case.casesAdjacent(player.case) || player.isClosedCasesBlocked()){
                 player = new Character(nameCharacter, iconUrl, field.getAvailableRandomCase());
             }
 

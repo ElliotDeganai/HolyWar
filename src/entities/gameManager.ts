@@ -36,7 +36,11 @@ class GameManager {
     startGame() {
         console.log('starting game...');
 
-        let field = LogicField.generateMap(10, 10);
+        let field = LogicField.generateMap(8, 8);
+
+        this.field = field;
+
+        this.setGameManager();
 
         LogicField.paintField(document.getElementById("fight"), field);
 
@@ -47,10 +51,10 @@ class GameManager {
         // First Player start
         this.playerTour = field.characters[0];
 
-        this.field = field;
 
-        this.setGameManager();
 
+
+        this.showReachableCase();
 
 
         console.log('The player ' + this.playerTour.name + ' can play.');
@@ -60,7 +64,6 @@ class GameManager {
         for(let col=0; col < this.field.size.x; col++){
             for(let row=0; row < this.field.size.y; row++){
                 let caseToCheck = this.field.cases[col][row];
-                let blockFaced = 0;
             if(this.playerTour.isCaseReachable(caseToCheck, this.field) === true && caseToCheck !== this.playerTour.case){
                 caseToCheck.$el.classList.add("case-reachable");
             }

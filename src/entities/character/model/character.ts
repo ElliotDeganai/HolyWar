@@ -13,6 +13,7 @@ class Character {
    life: number;
    level: number;
    case: Case;
+   closedCases: Array<Case>;
    weapon: Weapon;
    absoluteCoord: Coord;
    $el: HTMLElement;
@@ -24,14 +25,17 @@ class Character {
       this.name = name;
       this.iconUrl = iconUrl;
       this.case = startCase;
-      this.weapon = new Weapon("basicWeapon", 5, "/assets/img/weapon/weapon1.png");
+      this.closedCases = this.getClosedCases();
+      this.weapon = new Weapon("basicWeapon", 10, "/assets/img/weapon/weapon2.png");
 
    }
 
    takeWeapon(caseWeapon: Case, field: Field){
       let weaponToDrop = this.weapon;
       this.weapon = caseWeapon.weapon;
+      caseWeapon.removeWeapon();
       field.cases[caseWeapon.position.x][caseWeapon.position.y].weapon = weaponToDrop;
+      
       //LogicWeapon.paintWeapon(caseWeapon, weaponToDrop, field);
    }
 
@@ -91,7 +95,36 @@ class Character {
       }
    }
 
+   getClosedCases(): Array<Case>{
+      let closedCases = Array<Case>();
+      let sizeX = this.case.gameManager.field.size.x;
+      let sizeY = this.case.gameManager.field.size.y;
+      let field = this.case.gameManager.field;
+
+      for(let col = 0; col < sizeX; col++){
+         for(let row = 0; row < sizeY; row++){
+            if(this.case.casesAdjacent(field.cases[col][row])){
+               closedCases.push(field.cases[col][row]);
+            }
+         }
+      }
+      return closedCases;
+   }
+
+   isClosedCasesBlocked(): Boolean{
+      let allBlocked = true;
+      for(let caseToCheck of this.closedCases){
+         if(!caseToCheck.isBlocked){
+            allBlocked = false;
+         }
+      }
+      return allBlocked;
+   }
+
    moveTo(field: Field, caseToMove: Case){
+      let changedWeapon = false;
+      let caseFrom = this.case;
+      let previousWeapon = this.weapon;
       if(this.isCaseReachable(caseToMove, field)){
 
          let nextPlayerArray = field.characters.filter((nextPlayer) => {
@@ -101,8 +134,10 @@ class Character {
           let nextPlayer = nextPlayerArray[0];
          
       this.case = caseToMove;
+      this.closedCases = this.getClosedCases();
       if(caseToMove.hasWeapon()){
          this.takeWeapon(this.case, field);
+         changedWeapon = true;
          console.log('The player ' + this.case.gameManager.playerTour.name + ' let the weapon '+ caseToMove.weapon.name +' to take the weapon ' + this.weapon.name +'.');
       }
       // this.$el.remove();
@@ -110,6 +145,10 @@ class Character {
 
           LogicCharacter.setAbsolutePosition(this);
           LogicCharacter.characterAnimation(this, this.absoluteCoord);
+         if(changedWeapon){
+            LogicWeapon.paintWeapon(field.cases[caseFrom.position.x][caseFrom.position.y], previousWeapon, field);
+         }
+
 
       this.case.gameManager.playerTour = nextPlayer;
       console.log('The player ' + this.case.gameManager.playerTour.name + ' can play.');

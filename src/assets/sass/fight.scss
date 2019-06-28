@@ -8,7 +8,7 @@ body {
   right: 0;
   top: 0;
   bottom: 0;
-  background-color: gray;
+  background-color: rgb(231, 241, 241);
   height: 800px;
   width: 800px;
 }
@@ -21,8 +21,22 @@ body {
     position: relative;
     left: 20px;
     right: 20px;
-    top: 20px;
+    top: 5px;
     bottom: 20px;
+  }
+
+  #menu{
+    width: 680px;
+    max-height: 100%;
+    overflow: hidden;
+    position: relative;
+    left: 20px;
+    right: 20px;
+    top: 5px;
+    bottom: 20px;
+    background-image: url('/assets/img/menu/description.png');
+    background-size: cover;
+    background-position: 50% 50%;
   }
 
   .case {
@@ -68,5 +82,10 @@ body {
 .player{
   transition-property: left top;
   transition-duration: 2s;
+}
+
+.weapon{
+  transition-property: opacity;
+  transition-duration: 1s;
 }
 

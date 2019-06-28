@@ -57,8 +57,9 @@ class Case {
 
 
     removeWeapon(){
-        this.weapon = null;
+        
         this.weapon.$el.remove();
+        this.weapon = null;
 
     }
 

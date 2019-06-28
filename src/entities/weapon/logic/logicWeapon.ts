@@ -32,14 +32,15 @@ abstract class LogicWeapon {
         let spanElt = document.createElement("span");
         spanElt.classList.add("weapon");
         imgWeapon.src = weapon.iconUrl;
-        imgWeapon.style.maxHeight = "100%";
+        imgWeapon.style.maxWidth = "100%";
+        imgWeapon.style.maxHeight = "50%";
         imgWeapon.style.position = "absolute";
-        imgWeapon.style.top = "0";
+        imgWeapon.style.top = "30%";
         imgWeapon.style.left = "0";
         imgWeapon.style.zIndex = "20";
         spanElt.appendChild(imgWeapon);
-        console.log(caseWeapon.positionString);
         document.getElementById(caseWeapon.positionString).appendChild(spanElt);
+        field.cases[caseWeapon.position.x][caseWeapon.position.y].weapon = weapon;
         weapon.$el = spanElt;
     }
 }

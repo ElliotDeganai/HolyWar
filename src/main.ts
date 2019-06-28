@@ -6,6 +6,5 @@ import GameManager from "./entities/gameManager";
 
 let gameManager = new GameManager();
 gameManager.startGame();
-//gameManager.movePlayer();
-gameManager.showReachableCase();
+
 
