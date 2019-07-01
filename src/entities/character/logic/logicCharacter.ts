@@ -43,6 +43,7 @@ abstract class LogicCharacter {
         player.$el.style.top = player.absoluteCoord.x + 'px';
 
         field.characters.push(player);
+        player.case.gameManager.players.push(player);
     } 
 
     static paintCharacters(field: Field, player: Character, casePlayer: Case): void {

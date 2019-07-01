@@ -7,6 +7,8 @@ import LogicWeapon from "./weapon/logic/logicWeapon";
 import Character from "./character/model/character";
 import LogicCharacter from "./character/logic/logicCharacter";
 import Coord from "./coord/model/coord";
+import Logger from "./logger";
+import MenuManager from "./menuManager";
 
 class GameManager {
     field: Field;
@@ -14,6 +16,8 @@ class GameManager {
     players: Array<Character>;
     playerTour: Character;
     maxMove: number = 3;
+    logger: Logger;
+    menuManager: MenuManager;
 
     $el: HTMLElement;
 
@@ -22,6 +26,7 @@ class GameManager {
      */
     constructor() {
         this.players = new Array<Character>();
+        this.logger = new Logger();
         this.$el = document.getElementById(this.id);
     }
 
@@ -34,6 +39,7 @@ class GameManager {
     }
 
     startGame() {
+        this.logger.writteDescription('starting game...');
         console.log('starting game...');
 
         let field = LogicField.generateMap(8, 8);
@@ -50,13 +56,13 @@ class GameManager {
 
         // First Player start
         this.playerTour = field.characters[0];
-
+        MenuManager.setMenu(this);
 
 
 
         this.showReachableCase();
 
-
+        this.logger.writteDescription('The player ' + this.playerTour.name + ' can play.');
         console.log('The player ' + this.playerTour.name + ' can play.');
     }
 

@@ -4,6 +4,7 @@ import LogicWeapon from "../../weapon/logic/logicWeapon";
 import Field from "../../field/model/field";
 import LogicCharacter from "../logic/logicCharacter";
 import Coord from "../../coord/model/coord";
+import MenuManager from "../../menuManager";
 
 //This class for the fields
 class Character {
@@ -17,6 +18,9 @@ class Character {
    weapon: Weapon;
    absoluteCoord: Coord;
    $el: HTMLElement;
+   $avatarElt: HTMLElement; 
+   $avatarLifeElt: Element;
+   $avatarWeaponElt: HTMLElement;
 
    //constructor 
    constructor(name: string, iconUrl: string, startCase: Case) {
@@ -26,7 +30,7 @@ class Character {
       this.iconUrl = iconUrl;
       this.case = startCase;
       this.closedCases = this.getClosedCases();
-      this.weapon = new Weapon("basicWeapon", 10, "/assets/img/weapon/weapon2.png");
+      this.weapon = new Weapon("Regular", 10, "/assets/img/weapon/weapon2.png");
 
    }
 
@@ -125,6 +129,7 @@ class Character {
       let changedWeapon = false;
       let caseFrom = this.case;
       let previousWeapon = this.weapon;
+      let logger = this.case.gameManager.logger;
       if(this.isCaseReachable(caseToMove, field)){
 
          let nextPlayerArray = field.characters.filter((nextPlayer) => {
@@ -138,10 +143,10 @@ class Character {
       if(caseToMove.hasWeapon()){
          this.takeWeapon(this.case, field);
          changedWeapon = true;
+         logger.writteDescription('The player ' + this.case.gameManager.playerTour.name + ' let the weapon '+ caseToMove.weapon.name +' to take the weapon ' + this.weapon.name +'.');
          console.log('The player ' + this.case.gameManager.playerTour.name + ' let the weapon '+ caseToMove.weapon.name +' to take the weapon ' + this.weapon.name +'.');
+         MenuManager.updateInfoWeapon(this, this.case.gameManager.players.indexOf(this));
       }
-      // this.$el.remove();
-      // LogicCharacter.paintCharacters(field, this, caseToMove);
 
           LogicCharacter.setAbsolutePosition(this);
           LogicCharacter.characterAnimation(this, this.absoluteCoord);
@@ -151,8 +156,11 @@ class Character {
 
 
       this.case.gameManager.playerTour = nextPlayer;
+      MenuManager.updatePlayerTourMenu(this.case.gameManager.playerTour);
+      logger.writteDescription('The player ' + this.case.gameManager.playerTour.name + ' can play.');
       console.log('The player ' + this.case.gameManager.playerTour.name + ' can play.');
       }else{
+         logger.writteDescription("This place is unreachable!!");
          console.log("This place is unreachable!!");
       }
    }

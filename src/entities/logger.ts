@@ -9,17 +9,32 @@ import LogicCharacter from "./character/logic/logicCharacter";
 import Coord from "./coord/model/coord";
 
 class Logger {
-    activity: string;
+    activity: Array<string>;
     $el: HTMLElement;
 
     constructor() {
-        this.activity = "";
+        this.activity = Array<string>();
 
-        this.$el = document.getElementById('activity');
+        this.$el = document.getElementById('activity-item-list');
     }
 
 writteDescription(text: string){
-    this.activity = text;
+    let activityElt = this.$el;
+    this.activity.push(text);
+    let lastActivityIndice = this.activity.length-1;
+    let divElt = document.createElement("div");
+    let divTextElt = document.createElement("div");
+
+    let itemList = document.getElementsByClassName('last-item');
+    if(itemList[0] !== undefined && itemList[0] !== null){
+    itemList[0].classList.remove('last-item');
+    }
+
+    divTextElt.textContent = this.activity[lastActivityIndice];
+
+    
+    activityElt.insertAdjacentHTML('afterbegin', '<div class="activity-item last-item">'+ this.activity[lastActivityIndice] +'</div>');
+
 
 }
 
