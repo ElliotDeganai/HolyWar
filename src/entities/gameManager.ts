@@ -42,7 +42,7 @@ class GameManager {
         this.logger.writteDescription('starting game...');
         console.log('starting game...');
 
-        let field = LogicField.generateMap(8, 8);
+        let field = LogicField.generateMap(10, 10);
 
         this.field = field;
 

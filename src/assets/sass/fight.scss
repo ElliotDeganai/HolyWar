@@ -26,6 +26,19 @@ body {
     bottom: 20px;
   }
 
+  #fight-menu{
+    width: 380px;
+    height: 380px;
+    border: 2px black solid;
+    overflow: hidden;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 5px;
+    bottom: 20px;
+    z-index: 50;
+  }
+
   #menu{
     width: 680px;
     max-height: 100%;

@@ -5,6 +5,8 @@ import Field from "../../field/model/field";
 import LogicCharacter from "../logic/logicCharacter";
 import Coord from "../../coord/model/coord";
 import MenuManager from "../../menuManager";
+import Logger from "../../logger";
+import FightManager from "../../fightManager";
 
 //This class for the fields
 class Character {
@@ -21,6 +23,7 @@ class Character {
    $avatarElt: HTMLElement; 
    $avatarLifeElt: Element;
    $avatarWeaponElt: HTMLElement;
+   defenseMode: boolean;
 
    //constructor 
    constructor(name: string, iconUrl: string, startCase: Case) {
@@ -31,6 +34,7 @@ class Character {
       this.case = startCase;
       this.closedCases = this.getClosedCases();
       this.weapon = new Weapon("Regular", 10, "/assets/img/weapon/weapon2.png");
+      this.defenseMode = false;
 
    }
 
@@ -159,10 +163,32 @@ class Character {
       MenuManager.updatePlayerTourMenu(this.case.gameManager.playerTour);
       logger.writteDescription('The player ' + this.case.gameManager.playerTour.name + ' can play.');
       console.log('The player ' + this.case.gameManager.playerTour.name + ' can play.');
+      //FightManager.setFightMenu(this.case.gameManager);
       }else{
          logger.writteDescription("This place is unreachable!!");
          console.log("This place is unreachable!!");
       }
+   }
+   
+   attack(){
+      let logger = new Logger();
+      let opponent = this.case.gameManager.field.characters.filter((opponent) => {
+         return (opponent !== this);
+       })[0];
+
+       let indexOpponent = this.case.gameManager.field.characters.indexOf(opponent);
+
+       if(opponent.defenseMode === true){
+          opponent.life = Math.round((opponent.life - this.weapon.damage)/2);
+       }else{
+         opponent.life = opponent.life - this.weapon.damage;
+       }
+       MenuManager.updateInfoLife(opponent, indexOpponent);
+       logger.writteDescription(opponent.name + ' received ' + this.weapon.damage + 'pts of damages.');
+   }
+
+   defense(){
+      this.defenseMode = true;
    }
 }
 

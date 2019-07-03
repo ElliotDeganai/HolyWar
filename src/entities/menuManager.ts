@@ -108,13 +108,15 @@ abstract class MenuManager {
 
         let lifeInfoElt = document.getElementsByClassName("life-value")[indicePlayer];
 
-        // if(player.$avatarLifeElt.classList.contains('high-life-level')){
-        //     player.$avatarLifeElt.classList.remove('high-life-level'); 
-        // }else if(player.$avatarLifeElt.classList.contains('medium-life-level')){
-        //     player.$avatarLifeElt.classList.remove('medium-life-level'); 
-        // }else if(player.$avatarLifeElt.classList.contains('low-life-level')){
-        //     player.$avatarLifeElt.classList.remove('low-life-level'); 
-        // }
+        if(player.$avatarLifeElt !== undefined){
+        if(player.$avatarLifeElt.classList.contains('high-life-level')){
+            player.$avatarLifeElt.classList.remove('high-life-level'); 
+        }else if(player.$avatarLifeElt.classList.contains('medium-life-level')){
+            player.$avatarLifeElt.classList.remove('medium-life-level'); 
+        }else if(player.$avatarLifeElt.classList.contains('low-life-level')){
+            player.$avatarLifeElt.classList.remove('low-life-level'); 
+        }
+    }
 
         if(player.life > 75){
             lifeInfoElt.classList.add('high-life-level');
