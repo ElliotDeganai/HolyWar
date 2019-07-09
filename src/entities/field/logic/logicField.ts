@@ -80,6 +80,7 @@ abstract class LogicField {
    static setCharacters(field: Field): void {
       LogicCharacter.paintStartCharacters(field, "Exterminator", "/assets/img/characters/avatar1.png");
       LogicCharacter.paintStartCharacters(field, "Predator", "/assets/img/characters/avatar2.png");
+
    }
 }
 

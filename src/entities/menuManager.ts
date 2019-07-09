@@ -7,50 +7,41 @@ abstract class MenuManager {
     static setMenu(gameManager: GameManager){
 
         this.setInfo(gameManager.players[0], 0);
-        gameManager.players[0].$avatarLifeElt = document.querySelectorAll("#player1 .life-info")[0];
+
+        gameManager.players[0].$avatarLifeElt = document.querySelectorAll('#' +gameManager.players[0].name+ ' .life-info')[0];
 
         this.setInfo(gameManager.players[1], 1);
-        gameManager.players[1].$avatarLifeElt = document.querySelectorAll("#player2 .life-info")[0];
+        gameManager.players[1].$avatarLifeElt = document.querySelectorAll('#' +gameManager.players[1].name+ ' .life-info')[0];
 
         this.updatePlayerTourMenu(gameManager.playerTour);
         
     }
 
     static setInfo(player: Character, indicePlayer: number){
-        let lifeInfoElt = document.getElementsByClassName('life-info');
-        let divLifeElt = document.createElement("div");
-        divLifeElt.textContent = String(player.life);
-        divLifeElt.classList.add('life-value');
-        divLifeElt.style.position = "absolute";
+
         switch (indicePlayer) {
             case 0:
-                divLifeElt.style.left = "30px"
+                document.getElementsByClassName("player-info")[0].id = player.name;
                 break;
 
             case 1:
-                divLifeElt.style.right = "30px"
+                document.getElementsByClassName("player-info")[1].id = player.name;
                 break;
         }
-        divLifeElt.style.zIndex = "20";  
-        lifeInfoElt[indicePlayer].appendChild(divLifeElt);
+
+        
+        let lifeInfoElt = <HTMLDivElement>document.querySelectorAll('#' +player.name+ ' .life-info')[0];
+        let divLifeElt = document.createElement("div");
+        divLifeElt.textContent = String(player.life);
+        divLifeElt.classList.add('life-value'); 
+        lifeInfoElt.appendChild(divLifeElt);
         this.setColorInfoLife(player, indicePlayer);
 
-        let weaponInfoElt = document.getElementsByClassName('weapon-info');
+        let weaponInfoElt = <HTMLDivElement>document.querySelectorAll('#' +player.name+ ' .weapon-info')[0];
         let divWeaponElt = document.createElement("div");
         divWeaponElt.textContent = player.weapon.name+ '('+player.weapon.damage+')';
         divWeaponElt.classList.add('weapon-value');
-        divWeaponElt.style.position = "absolute";
-        switch (indicePlayer) {
-            case 0:
-                divWeaponElt.style.left = "30px"
-                break;
-
-            case 1:
-                divWeaponElt.style.right = "30px"
-                break;
-        }
-        divWeaponElt.style.zIndex = "20";
-        weaponInfoElt[indicePlayer].appendChild(divWeaponElt);
+        weaponInfoElt.appendChild(divWeaponElt);
 
         let avatarIconElt = document.getElementsByClassName('avatar-icon');
         let divAvatarElt = document.createElement("div");
@@ -59,42 +50,36 @@ abstract class MenuManager {
         let imgAvatar = document.createElement("img");
         imgAvatar.src = avatar;
 
-        divAvatarElt.id = player.name;
-        divAvatarElt.style.position = "absolute";
-        divAvatarElt.style.top = "10px";
+
+        divAvatarElt.appendChild(imgAvatar);
+        avatarIconElt[indicePlayer].appendChild(divAvatarElt);
+
+        let nameInfoElt = <HTMLDivElement>document.querySelectorAll('#' +player.name+ ' .player-name')[0];
+        nameInfoElt.textContent = player.name;
+
         switch (indicePlayer) {
             case 0:
                 divAvatarElt.style.left = "2%"
+                divLifeElt.style.marginLeft = "5px";
+                divWeaponElt.style.marginLeft = "5px";
+                imgAvatar.style.transform = "rotateY(180deg)";
                 break;
 
             case 1:
                 divAvatarElt.style.right = "5%"
+                divLifeElt.style.marginRight = "5px";
+                divWeaponElt.style.marginRight = "5px";
+                lifeInfoElt.style.flexDirection = "row-reverse";
+                weaponInfoElt.style.flexDirection = "row-reverse";
+                nameInfoElt.style.flexDirection = "row-reverse";
                 break;
         }
-        divAvatarElt.style.zIndex = "0";
-        divAvatarElt.style.overflow = "hidden";
-        divAvatarElt.appendChild(imgAvatar);
-        avatarIconElt[indicePlayer].appendChild(divAvatarElt);
 
-        let nameInfoElt = <HTMLDivElement>document.getElementsByClassName('player-name')[indicePlayer];
-        nameInfoElt.textContent = player.name;
-        nameInfoElt.style.position = "absolute";
-        nameInfoElt.style.top = "-5px";
-        nameInfoElt.style.fontWeight = "bold";
-        switch (indicePlayer) {
-            case 0:
-                nameInfoElt.style.left = "26%"
-                break;
-
-            case 1:
-                nameInfoElt.style.right = "26%"
-                break;
-        }
     }
 
     static updateInfoLife(player: Character, indicePlayer: number){
 
-        let lifeInfoElt = document.getElementsByClassName("life-value")[indicePlayer];
+        let lifeInfoElt = <HTMLDivElement>document.querySelectorAll('#' +player.name+ ' .life-value')[0];
 
         lifeInfoElt.innerHTML="";
         lifeInfoElt.textContent = String(player.life);
@@ -120,7 +105,7 @@ abstract class MenuManager {
 
         if(player.life > 75){
             lifeInfoElt.classList.add('high-life-level');
-        }else if (player.life > 30 && player.life < 75) {
+        }else if (player.life > 30 && player.life <= 75) {
             lifeInfoElt.classList.add('medium-life-level');
         } else {
             lifeInfoElt.classList.add('low-life-level');
@@ -140,8 +125,10 @@ abstract class MenuManager {
         if(playerElts[0] !== undefined && playerElts[0] !== null){
         playerElts[0].classList.remove("playerTour");
         }
-        let playerTourElt = document.getElementById(player.name);
+        let playerTourElt = <HTMLDivElement>document.querySelectorAll('#' +player.name+ ' .avatar-img')[0];
         playerTourElt.classList.add("playerTour");
+
+        
 
     }
 

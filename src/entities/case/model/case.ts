@@ -39,7 +39,12 @@ class Case {
     }
 
     casesAdjacent(caseToCheck: Case): Boolean{
-        if(this.position.x === caseToCheck.position.x+1 || this.position.x === caseToCheck.position.x-1 || this.position.y === caseToCheck.position.y+1 || this.position.y === caseToCheck.position.y-1){
+        let isSameX = this.position.x === caseToCheck.position.x;
+        let absoluteDeltaY = Math.abs(this.position.y-caseToCheck.position.y);
+        let isSameY = this.position.y === caseToCheck.position.y;
+        let absoluteDeltaX = Math.abs(this.position.x-caseToCheck.position.x);
+
+        if((isSameX && absoluteDeltaY <= 1) || (isSameY && absoluteDeltaX <= 1)){
             return true;
         }else{
             return false;
@@ -87,8 +92,7 @@ class Case {
                 let casesElement = (<HTMLElement>casesElements[i]);
                 casesElement.classList.remove('case-reachable');
             }
-            
-            var el = event.target||event.srcElement;
+
             let caseToGo = field.cases[this.position.x][this.position.y];
 
             // Do nothing if player select a Block Case

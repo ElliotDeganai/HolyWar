@@ -3,13 +3,18 @@ import Field from "../../field/model/field";
 import Character from "../../character/model/character";
 import Case from "../../case/model/case";
 import Coord from "../../coord/model/coord";
-
-const dimensionCase = 84;
+import GameManager from "../../gameManager";
 
 abstract class LogicCharacter {
 
     static paintStartCharacters(field: Field, nameCharacter: string, iconUrl: string): void {
         let player = new Character(nameCharacter, iconUrl, field.getAvailableRandomCase());
+
+        let nextPlayer = field.characters.filter((nextPlayer) => {
+            return (nextPlayer !== player);
+          })[0];
+
+
         
 
         if (typeof field.characters[0] !== 'undefined') {
@@ -30,10 +35,7 @@ abstract class LogicCharacter {
         imgChar.style.maxHeight = (Math.round(100 / field.size.x))+ "%";
         imgChar.style.position = "absolute";
         imgChar.style.zIndex = "50";
-        //spanElt.appendChild(imgChar);
-        //let playerDivElt = player.case.$el;
         let playerDivElt = document.getElementById("fight");
-        //playerDivElt.appendChild(spanElt);
         playerDivElt.appendChild(imgChar);
         player.$el = imgChar;
         imgChar.classList.add("player");
@@ -44,6 +46,14 @@ abstract class LogicCharacter {
 
         field.characters.push(player);
         player.case.gameManager.players.push(player);
+
+        if(player.case.gameManager.players.length === 2){
+            if(player.case.position.y < nextPlayer.case.position.y){
+                LogicCharacter.faceOpponent(player);
+              }else{
+                LogicCharacter.faceOpponent(nextPlayer);  
+              }
+        }
     } 
 
     static paintCharacters(field: Field, player: Character, casePlayer: Case): void {
@@ -71,6 +81,33 @@ abstract class LogicCharacter {
         player.$el.style.left = newCoord.y + 'px';
         player.$el.style.top = newCoord.x + 'px';
 
+    }
+
+    static faceOpponent(player: Character){
+        console.log(player);
+        player.$el.style.transform = "rotateY(180deg)";
+        if(player.direction === 'left'){
+            player.direction = 'right';
+        }else{
+            player.direction = 'left'; 
+        }
+    }
+
+    static checkPlayerDirection(gameManager: GameManager){
+        let playerLeft = gameManager.players.filter((playerLeft) => {
+            return (playerLeft.direction === 'right');
+          })[0];
+
+          let playerRight = gameManager.players.filter((playerRight) => {
+            return (playerRight.direction === 'left');
+          })[0];
+
+          if(playerLeft.case.position.y > playerRight.case.position.y){
+              console.log(playerLeft);
+              console.log(playerRight);
+            this.faceOpponent(playerLeft);
+            this.faceOpponent(playerRight);
+          }
     }
 
     static setAbsolutePosition(player: Character){

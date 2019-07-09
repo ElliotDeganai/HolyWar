@@ -24,6 +24,7 @@ class Character {
    $avatarLifeElt: Element;
    $avatarWeaponElt: HTMLElement;
    defenseMode: boolean;
+   direction: string;
 
    //constructor 
    constructor(name: string, iconUrl: string, startCase: Case) {
@@ -35,6 +36,7 @@ class Character {
       this.closedCases = this.getClosedCases();
       this.weapon = new Weapon("Regular", 10, "/assets/img/weapon/weapon2.png");
       this.defenseMode = false;
+      this.direction = "left";
 
    }
 
@@ -152,8 +154,16 @@ class Character {
          MenuManager.updateInfoWeapon(this, this.case.gameManager.players.indexOf(this));
       }
 
+      // let condition1 = this.case.position.y < nextPlayer.case.position.y && caseFrom.position.y > nextPlayer.case.position.y;
+      // let condition2 = this.case.position.y > nextPlayer.case.position.y && caseFrom.position.y < nextPlayer.case.position.y;
+
           LogicCharacter.setAbsolutePosition(this);
+
+            LogicCharacter.checkPlayerDirection(this.case.gameManager);
+
+
           LogicCharacter.characterAnimation(this, this.absoluteCoord);
+          LogicCharacter.checkPlayerDirection(this.case.gameManager);
          if(changedWeapon){
             LogicWeapon.paintWeapon(field.cases[caseFrom.position.x][caseFrom.position.y], previousWeapon, field);
          }
@@ -163,7 +173,11 @@ class Character {
       MenuManager.updatePlayerTourMenu(this.case.gameManager.playerTour);
       logger.writteDescription('The player ' + this.case.gameManager.playerTour.name + ' can play.');
       console.log('The player ' + this.case.gameManager.playerTour.name + ' can play.');
-      //FightManager.setFightMenu(this.case.gameManager);
+
+      if(this.case.casesAdjacent(nextPlayer.case)){
+      FightManager.setFightMenu(this.case.gameManager);
+      }
+
       }else{
          logger.writteDescription("This place is unreachable!!");
          console.log("This place is unreachable!!");
@@ -172,6 +186,7 @@ class Character {
    
    attack(){
       let logger = new Logger();
+      let tourDamage = 0;
       let opponent = this.case.gameManager.field.characters.filter((opponent) => {
          return (opponent !== this);
        })[0];
@@ -179,16 +194,42 @@ class Character {
        let indexOpponent = this.case.gameManager.field.characters.indexOf(opponent);
 
        if(opponent.defenseMode === true){
-          opponent.life = Math.round((opponent.life - this.weapon.damage)/2);
+          tourDamage = Math.round((this.weapon.damage)/2);
        }else{
-         opponent.life = opponent.life - this.weapon.damage;
+         tourDamage = this.weapon.damage;
+       }
+       opponent.life = opponent.life - tourDamage;
+       if(opponent.life < 0){
+         opponent.life = 0;
        }
        MenuManager.updateInfoLife(opponent, indexOpponent);
-       logger.writteDescription(opponent.name + ' received ' + this.weapon.damage + 'pts of damages.');
+       logger.writteDescription(opponent.name + ' received ' + tourDamage + 'pts of damages.');
+
+       for(let player of this.case.gameManager.players){
+          player.defenseMode = false;
+       }
+
+       this.case.gameManager.playerTour = opponent;
+       MenuManager.updatePlayerTourMenu(this.case.gameManager.playerTour);
+
+       FightManager.updatePlayerTourFightMenu(this.case.gameManager.playerTour);
+
+       if(opponent.life === 0){
+         FightManager.endGame(opponent);
+      }
    }
 
    defense(){
+
+      let opponent = this.case.gameManager.field.characters.filter((opponent) => {
+         return (opponent !== this);
+       })[0];
+
       this.defenseMode = true;
+
+      this.case.gameManager.playerTour = opponent;
+      MenuManager.updatePlayerTourMenu(this.case.gameManager.playerTour);
+      FightManager.updatePlayerTourFightMenu(this.case.gameManager.playerTour);
    }
 }
 

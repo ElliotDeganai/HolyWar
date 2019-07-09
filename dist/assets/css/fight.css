@@ -13,15 +13,17 @@ body {
   width: 800px; }
 
 #fight {
-  width: 680px;
-  height: 680px;
+  width: 600px;
+  height: 500px;
   border: 2px black solid;
   overflow: hidden;
   position: relative;
-  left: 20px;
-  right: 20px;
+  margin: 0 auto;
   top: 5px;
   bottom: 20px; }
+
+.fight-mode {
+  filter: brightness(50%); }
 
 #fight-menu {
   width: 380px;
@@ -29,22 +31,34 @@ body {
   border: 2px black solid;
   overflow: hidden;
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 5px;
-  bottom: 20px;
-  z-index: 50; }
+  background-color: grey;
+  left: 25%;
+  top: 10%;
+  z-index: 50;
+  display: flex;
+  flex-direction: column; }
+
+.character-to-fight {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto; }
+
+#action-button, #actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto; }
 
 #menu {
-  width: 680px;
+  width: 600px;
   max-height: 100%;
   overflow: hidden;
   position: relative;
-  left: 20px;
-  right: 20px;
   top: 5px;
   bottom: 20px;
-  margin-top: 10px; }
+  padding-top: 10px;
+  margin: 0 auto; }
 
 #activity {
   max-width: 100%;
@@ -62,20 +76,18 @@ body {
     max-height: 200px; }
 
 #activity-item-list {
-  position: absolute;
-  z-index: 5;
   display: flex;
   flex-direction: column;
   padding: 25px;
   overflow: hidden;
-  max-height: 175px; }
+  max-height: 175px;
+  max-width: 100%; }
 
 #activity-text {
-  position: absolute;
-  z-index: 5;
   display: flex;
   align-content: stretch;
-  flex-direction: column; }
+  flex-direction: column;
+  background-color: darkslategray; }
 
 .activity-item {
   color: #b5b0b0;
@@ -89,7 +101,8 @@ body {
 #evolution {
   display: flex;
   align-content: stretch;
-  justify-content: space-between; }
+  justify-content: space-between;
+  padding-bottom: 10px; }
 
 .player-avatar {
   width: 25%;
@@ -107,22 +120,24 @@ body {
   display: flex;
   flex-direction: column;
   position: absolute;
-  left: 26%;
-  top: 20%; }
+  left: 26%; }
 
 .info2 {
   display: flex;
   flex-direction: column;
   position: absolute;
-  right: 26%;
-  top: 20%; }
+  right: 26%; }
 
 .player-life, .player-weapon {
   float: left; }
 
-.life-info {
+.life-info, .weapon-info {
   display: flex;
   align-content: stretch; }
+
+.player-name {
+  font-weight: bold;
+  display: flex; }
 
 .high-life-level {
   color: green;
@@ -139,17 +154,34 @@ body {
 .avatar-img img {
   max-height: 60px; }
 
+.character-to-fight1 img, .character-to-fight2 img {
+  max-height: 150px;
+  transition-property: max-height;
+  transition-duration: 2s; }
+
+.playerTour-fight img {
+  max-height: 150px !important; }
+
+.passivePlayer-fight img {
+  max-height: 50px !important; }
+
+.avatar-img {
+  position: absolute;
+  top: 10px;
+  z-index: 0;
+  overflow: hidden; }
+
 .playerTour {
   animation: playerTourFloat 0.7s linear infinite;
   filter: brightness(150%); }
   .playerTour img {
-    max-height: 70px; }
+    max-height: 65px; }
 
 @keyframes playerTourFloat {
   from {
-    top: 3px; }
+    top: 1px; }
   to {
-    top: 13px; } }
+    top: 11px; } }
 
 .case {
   position: relative;
