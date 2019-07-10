@@ -23,12 +23,18 @@ gulp.task("copy-html", function () {
 gulp.task('sass', function(cb) {
     gulp.src('./src/assets/sass/*.scss')
         .pipe(sass())
-        .pipe(gulp.dest("dist/assets/css"));
+        .pipe(gulp.dest("src/assets/css"));
+    cb();
+});
+
+gulp.task('assets', function(cb) {
+    gulp.src('./src/assets/**/*')
+        .pipe(gulp.dest("dist/"));
     cb();
 });
 
 //tache principale
-gulp.task("default", gulp.series(gulp.parallel('copy-html'), gulp.parallel('sass'), function () {
+gulp.task("default", gulp.series(gulp.parallel('copy-html'), gulp.parallel('sass'),  gulp.parallel('assets'), function () {
     return browserify({
         basedir: '.',
         debug: true,
