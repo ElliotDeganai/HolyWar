@@ -18,6 +18,7 @@ class GameManager {
     maxMove: number = 3;
     logger: Logger;
     menuManager: MenuManager;
+    isFinished: boolean;
 
     $el: HTMLElement;
 
@@ -28,6 +29,7 @@ class GameManager {
         this.players = new Array<Character>();
         this.logger = new Logger();
         this.$el = document.getElementById(this.id);
+        this.isFinished = false;
     }
 
     setGameManager(){

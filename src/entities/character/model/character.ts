@@ -132,6 +132,11 @@ class Character {
    }
 
    moveTo(field: Field, caseToMove: Case){
+
+      if(caseToMove.gameManager.isFinished === true){
+         return;
+      }
+
       let changedWeapon = false;
       let caseFrom = this.case;
       let previousWeapon = this.weapon;
@@ -202,12 +207,17 @@ class Character {
        if(opponent.life < 0){
          opponent.life = 0;
        }
-       MenuManager.updateInfoLife(opponent, indexOpponent);
+       MenuManager.updateInfoLife(opponent, indexOpponent, tourDamage);
        logger.writteDescription(opponent.name + ' received ' + tourDamage + 'pts of damages.');
 
-       for(let player of this.case.gameManager.players){
-          player.defenseMode = false;
+       if(opponent.defenseMode === true){
+         opponent.defenseMode = false;
+         let nameInfoDivElt = <HTMLDivElement>document.querySelectorAll('#' +opponent.name+ ' .player-name-info')[0];
+         nameInfoDivElt.removeChild(document.querySelectorAll('#' +opponent.name+ ' .defense-mode')[0]);
+
        }
+
+
 
        this.case.gameManager.playerTour = opponent;
        MenuManager.updatePlayerTourMenu(this.case.gameManager.playerTour);
@@ -215,17 +225,35 @@ class Character {
        FightManager.updatePlayerTourFightMenu(this.case.gameManager.playerTour);
 
        if(opponent.life === 0){
-         FightManager.endGame(opponent);
+         FightManager.endGame(this);
       }
    }
 
    defense(){
+
+      if(this.defenseMode === true){
+         this.case.gameManager.logger.writteDescription("You are already in defense mode");
+         return;
+      }
+
+      let divShieldElt = document.createElement("div");
+      divShieldElt.classList.add("defense-mode");
+      let imgShield = document.createElement("img");
+      let nameInfoDivElt = <HTMLDivElement>document.querySelectorAll('#' +this.name+ ' .player-name-info')[0];
+
+      imgShield.src = "/assets/img/fight-menu/shield.png";
+      imgShield.classList.add("shield-fight-img");
+
+      divShieldElt.appendChild(imgShield);
+      nameInfoDivElt.appendChild(divShieldElt);
 
       let opponent = this.case.gameManager.field.characters.filter((opponent) => {
          return (opponent !== this);
        })[0];
 
       this.defenseMode = true;
+
+      this.case.gameManager.logger.writteDescription(this.name + ' is ready to defend himself.');
 
       this.case.gameManager.playerTour = opponent;
       MenuManager.updatePlayerTourMenu(this.case.gameManager.playerTour);

@@ -15,16 +15,20 @@ abstract class FightManager {
         
     }
 
+    static setIdPlayerInfo(gameManager: GameManager, element: Element){
+
+        document.getElementsByClassName("character-to-fight-avatar")[0].id = gameManager.players[0].name;
+
+        document.getElementsByClassName("character-to-fight-avatar")[1].id = gameManager.players[1].name;
+
+}
+
     static setFightMenu(gameManager: GameManager){
-        let divFightMenuElt = document.createElement("div");
-        divFightMenuElt.id = "fight-menu";
 
-        let divActions = document.createElement("div");
+        gameManager.isFinished = true;
 
-        let textAction = document.createElement("p");
-        textAction.textContent = "What will you do?";
-        divActions.appendChild(textAction);
-        divActions.id = 'actions';
+        let divFightMenuElt = document.getElementById("fight-menu");
+        divFightMenuElt.style.display = "block";
 
         let avatar1 = gameManager.players[0].iconUrl;
         let imgAvatar1 = document.createElement("img");
@@ -35,42 +39,23 @@ abstract class FightManager {
         let imgAvatar2 = document.createElement("img");
         imgAvatar2.src = avatar2;
 
-        let divCharacters = document.createElement("div");
-        divCharacters.classList.add("character-to-fight");
-
-        let divCharacterToFight1 = document.createElement("div");
-        divCharacterToFight1.classList.add("character-to-fight1");
+        let divCharacterToFight1 = document.getElementsByClassName("character-to-fight-avatar")[0];
         divCharacterToFight1.classList.add(gameManager.players[0].name);
         divCharacterToFight1.appendChild(imgAvatar1);
 
-        let divCharacterToFight2 = document.createElement("div");
-        divCharacterToFight2.classList.add("character-to-fight2");
+        let divCharacterToFight2 = document.getElementsByClassName("character-to-fight-avatar")[1];
         divCharacterToFight2.classList.add(gameManager.players[1].name);
         divCharacterToFight2.appendChild(imgAvatar2);
+        
+        this.setAttackButton(gameManager);
+        this.setDefenseButton(gameManager);
 
-        let divButton = document.createElement("div");
-        divButton.id = "action-button";
-        let attackButton = this.setAttackButton(gameManager);
-        let defenseButton = this.setDefenseButton(gameManager);
-        divButton.appendChild(attackButton);
-        divButton.appendChild(defenseButton);
-
-        divCharacters.appendChild(divCharacterToFight1);
-        divCharacters.appendChild(divCharacterToFight2);
-        divFightMenuElt.appendChild(divCharacters);
-        divFightMenuElt.appendChild(divActions);
-        divFightMenuElt.appendChild(divButton);
 
         document.getElementById("arena").appendChild(divFightMenuElt);
         document.getElementById("fight").classList.add("fight-mode");
-        let casesElements = document.getElementsByClassName('case');
 
-        for (let row of gameManager.field.cases) {
-            for(let caseToCheck of row){
-            caseToCheck.$el.classList.remove('case-reachable');
-            caseToCheck.$el.removeEventListener('click', onclick);
-        }
-    }
+
+    
 
         if(gameManager.playerTour === gameManager.players[0]){
             document.querySelectorAll('.' +gameManager.playerTour.name)[0].classList.add("playerTour-fight");
@@ -81,14 +66,12 @@ abstract class FightManager {
         }
     }
 
-    static setAttackButton(gameManager: GameManager): HTMLButtonElement{
-        let attackButton = document.createElement("button");
-        attackButton.textContent = "Attack";
-        attackButton.id = "btnAttack";
+    static setAttackButton(gameManager: GameManager){
+
+        let attackButton = <HTMLDivElement>document.querySelectorAll('#btnAttack')[0];
         attackButton.onclick = (event: MouseEvent) => {
             this.onClickAttack(event, gameManager);
         };
-        return attackButton;
     }
 
     static onClickAttack(event: MouseEvent, gameManager: GameManager): void{
@@ -102,14 +85,12 @@ abstract class FightManager {
 
     } 
 
-    static setDefenseButton(gameManager: GameManager): HTMLButtonElement{
-        let defenseButton = document.createElement("button");
-        defenseButton.id = "btnDefense";
-        defenseButton.textContent = "Defense";
+    static setDefenseButton(gameManager: GameManager){ 
+
+        let defenseButton = <HTMLDivElement>document.querySelectorAll('#btnDefense')[0];
         defenseButton.onclick = (event: MouseEvent) => {
             this.onClickDefense(event, gameManager);
         };
-        return defenseButton;
     }
 
     static onClickDefense(event: MouseEvent, gameManager: GameManager): void{
@@ -117,10 +98,34 @@ abstract class FightManager {
           gameManager.playerTour.defense();
 
     }
+
+    static onClickReload(event: MouseEvent): void{
+
+        location.reload();
+
+  }
     
     static endGame(player: Character){
-        window.alert('The player ' +player.name+ ' lost!!\nThe game will restart.');
-        location.reload(true);
+        //window.alert('The player ' +player.name+ ' lost!!\nThe game will restart.');
+        //location.reload(true);
+
+        document.getElementById("endGame-modal").style.display = "block";
+        document.getElementById("arena").style.filter = "brightness(50%)";
+
+        document.getElementById("winner").textContent = player.name + " win the game!!!";
+
+        let winnerImg = document.createElement("img");
+        winnerImg.src = player.iconUrl;
+
+        document.getElementById("winner-img").appendChild(winnerImg);
+
+        let refresh = document.getElementById("endGame-img-reload");
+        refresh.onclick = (event: MouseEvent) => {
+            this.onClickReload(event);
+        };
+
+
+
     }
 
     static updatePlayerTourFightMenu(player: Character){

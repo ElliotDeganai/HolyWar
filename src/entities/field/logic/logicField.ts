@@ -19,6 +19,12 @@ abstract class LogicField {
       let totalCases = x * y;
       let blockedCases = Math.round(totalCases / 6);
       let field: Field = new Field(x, y);
+      let arenaStyle = getComputedStyle(document.getElementById("arena"));
+      //let fightEltWidth = Number(arenaStyle.width) - 2*arenaStyle.
+
+      console.log(Number(arenaStyle.width));
+      console.log(arenaStyle.padding);
+      console.log(Number(arenaStyle.width) - Number(arenaStyle.padding));
 
       for (let col = 0; col < x; col++) {
          field.cases[col] = [];
@@ -36,6 +42,7 @@ abstract class LogicField {
       }
       }
       field.unsortCases();
+      field.$el = document.getElementById("fight");
 
       return field;
    }

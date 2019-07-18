@@ -6,6 +6,8 @@ abstract class MenuManager {
 
     static setMenu(gameManager: GameManager){
 
+        this.setIdPlayerInfo(gameManager);
+
         this.setInfo(gameManager.players[0], 0);
 
         gameManager.players[0].$avatarLifeElt = document.querySelectorAll('#' +gameManager.players[0].name+ ' .life-info')[0];
@@ -17,51 +19,46 @@ abstract class MenuManager {
         
     }
 
+    static setIdPlayerInfo(gameManager: GameManager){
+
+                document.getElementsByClassName("player-info")[0].id = gameManager.players[0].name;
+
+                document.getElementsByClassName("player-info")[1].id = gameManager.players[1].name;
+
+    }
+
     static setInfo(player: Character, indicePlayer: number){
-
-        switch (indicePlayer) {
-            case 0:
-                document.getElementsByClassName("player-info")[0].id = player.name;
-                break;
-
-            case 1:
-                document.getElementsByClassName("player-info")[1].id = player.name;
-                break;
-        }
-
-        
+   
         let lifeInfoElt = <HTMLDivElement>document.querySelectorAll('#' +player.name+ ' .life-info')[0];
-        let divLifeElt = document.createElement("div");
+        let divLifeElt = <HTMLDivElement>document.querySelectorAll('#' +player.name+ ' .life-value')[0];
         divLifeElt.textContent = String(player.life);
-        divLifeElt.classList.add('life-value'); 
-        lifeInfoElt.appendChild(divLifeElt);
+
+        let divDamageElt = <HTMLDivElement>document.querySelectorAll('#' +player.name+ ' .damageTour')[0];
+
         this.setColorInfoLife(player, indicePlayer);
 
         let weaponInfoElt = <HTMLDivElement>document.querySelectorAll('#' +player.name+ ' .weapon-info')[0];
-        let divWeaponElt = document.createElement("div");
+        let divWeaponElt = <HTMLDivElement>document.querySelectorAll('#' +player.name+ ' .weapon-value')[0]
         divWeaponElt.textContent = player.weapon.name+ '('+player.weapon.damage+')';
-        divWeaponElt.classList.add('weapon-value');
-        weaponInfoElt.appendChild(divWeaponElt);
 
-        let avatarIconElt = document.getElementsByClassName('avatar-icon');
-        let divAvatarElt = document.createElement("div");
-        divAvatarElt.classList.add("avatar-img")
+        let divAvatarElt = <HTMLDivElement>document.querySelectorAll('#' +player.name+ ' .avatar-img')[0];
         let avatar = player.iconUrl;
         let imgAvatar = document.createElement("img");
         imgAvatar.src = avatar;
-
-
         divAvatarElt.appendChild(imgAvatar);
-        avatarIconElt[indicePlayer].appendChild(divAvatarElt);
 
         let nameInfoElt = <HTMLDivElement>document.querySelectorAll('#' +player.name+ ' .player-name')[0];
         nameInfoElt.textContent = player.name;
 
+        let nameInfoDivElt = <HTMLDivElement>document.querySelectorAll('#' +player.name+ ' .player-name-info')[0];
+
         switch (indicePlayer) {
             case 0:
-                divAvatarElt.style.left = "2%"
+                divAvatarElt.style.left = "5%"
                 divLifeElt.style.marginLeft = "5px";
                 divWeaponElt.style.marginLeft = "5px";
+                divDamageElt.style.marginLeft = "5px";
+                nameInfoElt.style.marginRight = "5px";
                 imgAvatar.style.transform = "rotateY(180deg)";
                 break;
 
@@ -69,17 +66,23 @@ abstract class MenuManager {
                 divAvatarElt.style.right = "5%"
                 divLifeElt.style.marginRight = "5px";
                 divWeaponElt.style.marginRight = "5px";
+                divDamageElt.style.marginRight = "5px";
+                nameInfoElt.style.marginLeft = "5px";
                 lifeInfoElt.style.flexDirection = "row-reverse";
                 weaponInfoElt.style.flexDirection = "row-reverse";
                 nameInfoElt.style.flexDirection = "row-reverse";
+                nameInfoDivElt.style.flexDirection = "row-reverse";
                 break;
         }
 
     }
 
-    static updateInfoLife(player: Character, indicePlayer: number){
+    static updateInfoLife(player: Character, indicePlayer: number, damage: number){
 
         let lifeInfoElt = <HTMLDivElement>document.querySelectorAll('#' +player.name+ ' .life-value')[0];
+        let damageElt = <HTMLDivElement>document.getElementsByClassName("damageTour")[indicePlayer];
+        damageElt.textContent = String("-"+damage);
+        
 
         lifeInfoElt.innerHTML="";
         lifeInfoElt.textContent = String(player.life);

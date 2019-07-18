@@ -11,16 +11,29 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat|Parisienne|Pacifico|Ubuntu|IBM+Plex+Sans" rel="stylesheet">
     <link rel="icon" type="image/png" href="/assets/img/menu/icon.png">
     <style type="text/css">
-        /* Styles de base */
-        body {
-            padding-top: 70px;
-        }
     </style>
 </head>
 
 <body>
 
+  <div id="endGame-modal">
+    <img id="endGame-img-table" src="/assets/img/fight-menu/table.png" alt="Activity">
+    <img id="endGame-img-banner" src="/assets/img/fight-menu/header_win.png" alt="Activity">
+    
+    
+    <div id="winner-info">
+    <div id="winner"></div>
+    <div id="winner-img"></div>
+    <img id="endGame-img-reload" src="/assets/img/fight-menu/new-game.png" alt="Activity">
+  </div>
+
+  </div>
+
     <div id="arena">
+
+        
+
+
     <div id="fight"></div>
     <div id="menu">
 
@@ -29,18 +42,25 @@
             <div class="player-info">
             <div class="avatar-icon">
                 <div class="avatar-window"><img class="player-avatar" src="/assets/img/menu/avatar.png" alt="Activity"></div>
-            
+                <div class="avatar-img"></div>
             </div>
 
             
 
             <div class="info1">
+                <div class="player-name-info">
                     <div class="player-name"></div>
+                </div>
+
                     <div class="life-info">
             <div class="life-icon"><img class="player-life" src="/assets/img/menu/life.png" alt="Life"></div>
+            <div class="life-value"></div>
+            <div class="damageTour"></div>
         </div>
+
         <div class="weapon-info">
             <div class="weapon-icon"><img class="player-weapon" src="/assets/img/menu/weapon.png" alt="Weapon"></div>
+            <div class="weapon-value"></div>
         </div>
     </div>
         </div>
@@ -48,17 +68,25 @@
         <div class="player-info">
             <div class="avatar-icon">
                     <div class="avatar-window"><img class="player-avatar player2" src="/assets/img/menu/avatar.png" alt="Activity"></div>
-                    </div>
+                    <div class="avatar-img"></div>
+            </div>
                     
                     
 
                 <div class="info2">
+
+                        <div class="player-name-info">
                         <div class="player-name"></div>
+                    </div>
+
                     <div class="life-info">
             <div class="life-icon"><img class="player-life" src="/assets/img/menu/life.png" alt="Life"></div>
+            <div class="life-value"></div>
+            <div class="damageTour"></div>
         </div>
         <div class="weapon-info">
             <div class="weapon-icon"><img class="player-weapon" src="/assets/img/menu/weapon.png" alt="Weapon"></div>
+            <div class="weapon-value"></div>
         </div>
     </div>
         </div>
@@ -70,6 +98,42 @@
 
 </div>
 
+<div id="fight-menu">
+
+        <img class="fight-menu-table" src="/assets/img/fight-menu/table.png" alt="Activity">
+    <div id="fight-banner">
+           <img src="/assets/img/fight-menu/header_fight.png">
+    </div
+    ><div class="character-to-fight">
+        <div class="character-to-fight-avatar">
+        </div>
+        <div class="character-to-fight-avatar">
+        </div>
+    </div>
+    <div id="actions">
+        <p>What will you do?</p>
+    </div>
+    <div id="action-button">
+        <div id="btnAttack">
+            <div class="action-icon">
+                <img src="/assets/img/fight-menu/ico_2.png">
+            </div><img src="/assets/img/fight-menu/table_top1.png">
+            <div class="text-button">Attack</div>
+        </div>
+        <div id="btnDefense">
+            <div class="action-icon">
+                <img src="/assets/img/fight-menu/ico_1.png">
+            </div><img src="/assets/img/fight-menu/table_top1.png">
+            <div class="text-button">Defense</div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- Button trigger modal -->
+<script src="/assets/js/jquery.js"></script>
+<script src="/assets/js/bootstrap.js"></script>
     <script src="/bundle.js"></script>
 </body>
 
