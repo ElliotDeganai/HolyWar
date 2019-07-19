@@ -2,3 +2,5 @@
 .idea
 dist
 node_modules
+
+src/assets/css/fight.css
