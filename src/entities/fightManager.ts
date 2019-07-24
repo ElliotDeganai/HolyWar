@@ -8,7 +8,7 @@ abstract class FightManager {
     static fightToDeath(player1: Character, player2: Character){
 
         let logger: Logger;
-        logger.writteDescription('The death match begins !!');
+        logger.writteDescription('The death match begins !!', player1.case.gameManager);
 
         document.getElementById('')
 
@@ -22,6 +22,8 @@ abstract class FightManager {
         document.getElementsByClassName("character-to-fight-avatar")[1].id = gameManager.players[1].name;
 
 }
+
+
 
     static setFightMenu(gameManager: GameManager){
 
@@ -64,6 +66,10 @@ abstract class FightManager {
             document.querySelectorAll('.' +gameManager.playerTour.name)[0].classList.add("playerTour-fight");
             document.querySelectorAll('.' +gameManager.players[0].name)[0].classList.add("passivePlayer-fight");            
         }
+    }
+
+    static setFightMenuDelay(gameManager: GameManager){
+        setTimeout(function(){FightManager.setFightMenu(gameManager);}, 2000);
     }
 
     static setAttackButton(gameManager: GameManager){

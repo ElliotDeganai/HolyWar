@@ -50,6 +50,8 @@ abstract class LogicCharacter {
         if(player.case.gameManager.players.length === 2){
             if(player.case.position.y < nextPlayer.case.position.y){
                 LogicCharacter.faceOpponent(player);
+                player.colorText = "blue";
+                nextPlayer.colorText = "red";
               }else{
                 LogicCharacter.faceOpponent(nextPlayer);  
               }
@@ -84,7 +86,6 @@ abstract class LogicCharacter {
     }
 
     static faceOpponent(player: Character){
-        console.log(player);
         player.$el.style.transform = "rotateY(180deg)";
         if(player.direction === 'left'){
             player.direction = 'right';
@@ -103,8 +104,7 @@ abstract class LogicCharacter {
           })[0];
 
           if(playerLeft.case.position.y > playerRight.case.position.y){
-              console.log(playerLeft);
-              console.log(playerRight);
+
             this.faceOpponent(playerLeft);
             this.faceOpponent(playerRight);
           }

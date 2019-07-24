@@ -22,10 +22,6 @@ abstract class LogicField {
       let arenaStyle = getComputedStyle(document.getElementById("arena"));
       //let fightEltWidth = Number(arenaStyle.width) - 2*arenaStyle.
 
-      console.log(Number(arenaStyle.width));
-      console.log(arenaStyle.padding);
-      console.log(Number(arenaStyle.width) - Number(arenaStyle.padding));
-
       for (let col = 0; col < x; col++) {
          field.cases[col] = [];
          for(let row = 0; row < y; row++){

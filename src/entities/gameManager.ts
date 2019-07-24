@@ -41,7 +41,7 @@ class GameManager {
     }
 
     startGame() {
-        this.logger.writteDescription('starting game...');
+        this.logger.writteDescription('starting game...', this);
         console.log('starting game...');
 
         let field = LogicField.generateMap(10, 10);
@@ -64,7 +64,7 @@ class GameManager {
 
         this.showReachableCase();
 
-        this.logger.writteDescription('The player ' + this.playerTour.name + ' can play.');
+        this.logger.writteDescription(this.playerTour.name + ' can play.', this, this.playerTour);
         console.log('The player ' + this.playerTour.name + ' can play.');
     }
 

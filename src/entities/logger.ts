@@ -7,6 +7,7 @@ import LogicWeapon from "./weapon/logic/logicWeapon";
 import Character from "./character/model/character";
 import LogicCharacter from "./character/logic/logicCharacter";
 import Coord from "./coord/model/coord";
+import GameManager from "./gameManager";
 
 class Logger {
     activity: Array<string>;
@@ -18,12 +19,19 @@ class Logger {
         this.$el = document.getElementById('activity-item-list');
     }
 
-writteDescription(text: string){
+writteDescription(text: string, gameManager: GameManager, speaker:Character = null){
     let activityElt = this.$el;
     this.activity.push(text);
     let lastActivityIndice = this.activity.length-1;
-    let divElt = document.createElement("div");
     let divTextElt = document.createElement("div");
+    let textColorClass: string;
+    if(speaker === gameManager.players[0]){
+        textColorClass = "player0";
+    }else if(speaker === gameManager.players[1]){
+        textColorClass = "player1";
+    }else{
+        textColorClass = "system";
+    }
 
     let itemList = document.getElementsByClassName('last-item');
     if(itemList[0] !== undefined && itemList[0] !== null){
@@ -33,7 +41,7 @@ writteDescription(text: string){
     divTextElt.textContent = this.activity[lastActivityIndice];
 
     
-    activityElt.insertAdjacentHTML('afterbegin', '<div class="activity-item last-item">'+ this.activity[lastActivityIndice] +'</div>');
+    activityElt.insertAdjacentHTML('afterbegin', '<div class="activity-item last-item '+ textColorClass + '">'+ this.activity[lastActivityIndice] +'</div>');
 
 
 }

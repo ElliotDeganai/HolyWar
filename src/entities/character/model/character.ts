@@ -25,6 +25,7 @@ class Character {
    $avatarWeaponElt: HTMLElement;
    defenseMode: boolean;
    direction: string;
+   colorText: string;
 
    //constructor 
    constructor(name: string, iconUrl: string, startCase: Case) {
@@ -154,13 +155,10 @@ class Character {
       if(caseToMove.hasWeapon()){
          this.takeWeapon(this.case, field);
          changedWeapon = true;
-         logger.writteDescription('The player ' + this.case.gameManager.playerTour.name + ' let the weapon '+ caseToMove.weapon.name +' to take the weapon ' + this.weapon.name +'.');
+         logger.writteDescription(this.case.gameManager.playerTour.name + ' took the weapon ' + this.weapon.name +'.', this.case.gameManager, this.case.gameManager.playerTour);
          console.log('The player ' + this.case.gameManager.playerTour.name + ' let the weapon '+ caseToMove.weapon.name +' to take the weapon ' + this.weapon.name +'.');
          MenuManager.updateInfoWeapon(this, this.case.gameManager.players.indexOf(this));
       }
-
-      // let condition1 = this.case.position.y < nextPlayer.case.position.y && caseFrom.position.y > nextPlayer.case.position.y;
-      // let condition2 = this.case.position.y > nextPlayer.case.position.y && caseFrom.position.y < nextPlayer.case.position.y;
 
           LogicCharacter.setAbsolutePosition(this);
 
@@ -176,15 +174,15 @@ class Character {
 
       this.case.gameManager.playerTour = nextPlayer;
       MenuManager.updatePlayerTourMenu(this.case.gameManager.playerTour);
-      logger.writteDescription('The player ' + this.case.gameManager.playerTour.name + ' can play.');
+      logger.writteDescription(this.case.gameManager.playerTour.name + ' can play.', this.case.gameManager, nextPlayer);
       console.log('The player ' + this.case.gameManager.playerTour.name + ' can play.');
 
       if(this.case.casesAdjacent(nextPlayer.case)){
-      FightManager.setFightMenu(this.case.gameManager);
+         FightManager.setFightMenuDelay(this.case.gameManager);
       }
 
       }else{
-         logger.writteDescription("This place is unreachable!!");
+         logger.writteDescription("This place is unreachable!!", this.case.gameManager);
          console.log("This place is unreachable!!");
       }
    }
@@ -208,7 +206,7 @@ class Character {
          opponent.life = 0;
        }
        MenuManager.updateInfoLife(opponent, indexOpponent, tourDamage);
-       logger.writteDescription(opponent.name + ' received ' + tourDamage + 'pts of damages.');
+       logger.writteDescription(opponent.name + ' received ' + tourDamage + 'pts of damages.', this.case.gameManager, opponent);
 
        if(opponent.defenseMode === true){
          opponent.defenseMode = false;
@@ -219,6 +217,7 @@ class Character {
 
 
 
+       MenuManager.updateDamageTourMenu(this, opponent);
        this.case.gameManager.playerTour = opponent;
        MenuManager.updatePlayerTourMenu(this.case.gameManager.playerTour);
 
@@ -232,7 +231,7 @@ class Character {
    defense(){
 
       if(this.defenseMode === true){
-         this.case.gameManager.logger.writteDescription("You are already in defense mode");
+         this.case.gameManager.logger.writteDescription("You are already in defense mode", this.case.gameManager, this);
          return;
       }
 
@@ -253,7 +252,7 @@ class Character {
 
       this.defenseMode = true;
 
-      this.case.gameManager.logger.writteDescription(this.name + ' is ready to defend himself.');
+      this.case.gameManager.logger.writteDescription(this.name + ' is ready to defend himself.', this.case.gameManager, this);
 
       this.case.gameManager.playerTour = opponent;
       MenuManager.updatePlayerTourMenu(this.case.gameManager.playerTour);
