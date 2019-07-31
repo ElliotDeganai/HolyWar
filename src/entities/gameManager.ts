@@ -9,6 +9,7 @@ import LogicCharacter from "./character/logic/logicCharacter";
 import Coord from "./coord/model/coord";
 import Logger from "./logger";
 import MenuManager from "./menuManager";
+import Sound from "./sound";
 
 class GameManager {
     field: Field;
@@ -19,6 +20,10 @@ class GameManager {
     logger: Logger;
     menuManager: MenuManager;
     isFinished: boolean;
+    soundBackground: Sound;
+    soundFightBackground: Sound;
+    soundPickUpWeapon: Sound;
+    soundDefenseMode: Sound;
 
     $el: HTMLElement;
 
@@ -30,6 +35,7 @@ class GameManager {
         this.logger = new Logger();
         this.$el = document.getElementById(this.id);
         this.isFinished = false;
+        this.soundBackground = new Sound('/assets/song/Dragon Ball Z Theme 3.mp3');
     }
 
     setGameManager(){
@@ -66,6 +72,8 @@ class GameManager {
 
         this.logger.writteDescription(this.playerTour.name + ' can play.', this, this.playerTour);
         console.log('The player ' + this.playerTour.name + ' can play.');
+        document.getElementById('arena').appendChild(this.soundBackground.$el);
+        this.soundBackground.play();
     }
 
     showReachableCase(){

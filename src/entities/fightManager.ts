@@ -30,7 +30,8 @@ abstract class FightManager {
         gameManager.isFinished = true;
 
         let divFightMenuElt = document.getElementById("fight-menu");
-        divFightMenuElt.style.display = "block";
+        divFightMenuElt.style.display = "flex";
+        divFightMenuElt.style.flexDirection = "column";
 
         let avatar1 = gameManager.players[0].iconUrl;
         let imgAvatar1 = document.createElement("img");
@@ -116,7 +117,7 @@ abstract class FightManager {
         //location.reload(true);
 
         document.getElementById("endGame-modal").style.display = "block";
-        document.getElementById("arena").style.filter = "brightness(50%)";
+        document.getElementById("darkener").style.display = "block";
 
         document.getElementById("winner").textContent = player.name + " win the game!!!";
 
