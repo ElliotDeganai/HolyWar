@@ -20,7 +20,11 @@ abstract class LogicField {
       let blockedCases = Math.round(totalCases / 6);
       let field: Field = new Field(x, y);
       let arenaStyle = getComputedStyle(document.getElementById("arena"));
-      //let fightEltWidth = Number(arenaStyle.width) - 2*arenaStyle.
+      let fightStyle = getComputedStyle(document.getElementById("fight"));
+      let fightEltWidth = parseInt(arenaStyle.width, 10);
+      let fightEltHeight = parseInt(fightStyle.height, 10);
+      field.caseHeight = fightEltWidth/y;
+      field.caseWidht = fightEltHeight/x;
 
       for (let col = 0; col < x; col++) {
          field.cases[col] = [];
@@ -82,8 +86,9 @@ abstract class LogicField {
 
    static setCharacters(field: Field): void {
       LogicCharacter.paintStartCharacters(field, "Exterminator", "/assets/img/characters/avatar1.png");
+      
       LogicCharacter.paintStartCharacters(field, "Predator", "/assets/img/characters/avatar2.png");
-
+      console.log(field.characters);
    }
 }
 

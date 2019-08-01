@@ -12,6 +12,10 @@ import GameManager from "./gameManager";
 class Logger {
     activity: Array<string>;
     $el: HTMLElement;
+    iconLoggerLife: string = '<img src="/assets/img/menu/life.png">';
+    iconLoggerAttack: string = '<img src="/assets/img/menu/weapon.png">';
+    iconLoggerDefense: string = '<img src="/assets/img/fight-menu/shield.png">';
+
 
     constructor() {
         this.activity = Array<string>();

@@ -155,7 +155,8 @@ class Character {
       if(caseToMove.hasWeapon()){
          this.takeWeapon(this.case, field);
          changedWeapon = true;
-         logger.writteDescription(this.case.gameManager.playerTour.name + ' took the weapon ' + this.weapon.name +'.', this.case.gameManager, this.case.gameManager.playerTour);
+         this.case.gameManager.soundPickUpWeapon.play();
+         logger.writteDescription(this.case.gameManager.playerTour.name + ' changed ' + this.case.gameManager.logger.iconLoggerAttack +'.', this.case.gameManager, this.case.gameManager.playerTour);
          console.log('The player ' + this.case.gameManager.playerTour.name + ' let the weapon '+ caseToMove.weapon.name +' to take the weapon ' + this.weapon.name +'.');
          MenuManager.updateInfoWeapon(this, this.case.gameManager.players.indexOf(this));
       }
@@ -185,6 +186,8 @@ class Character {
          logger.writteDescription("This place is unreachable!!", this.case.gameManager);
          console.log("This place is unreachable!!");
       }
+
+      console.log(field.characters);
    }
    
    attack(){
@@ -205,8 +208,10 @@ class Character {
        if(opponent.life < 0){
          opponent.life = 0;
        }
+
+       this.case.gameManager.soundAttack.play();
        MenuManager.updateInfoLife(opponent, indexOpponent, tourDamage);
-       logger.writteDescription(opponent.name + ' received ' + tourDamage + 'pts of damages.', this.case.gameManager, opponent);
+       logger.writteDescription(opponent.name +' '+ this.case.gameManager.logger.iconLoggerLife + ' -' + tourDamage + 'pts.', this.case.gameManager, opponent);
 
        if(opponent.defenseMode === true){
          opponent.defenseMode = false;
@@ -231,7 +236,7 @@ class Character {
    defense(){
 
       if(this.defenseMode === true){
-         this.case.gameManager.logger.writteDescription("You are already in defense mode", this.case.gameManager, this);
+         this.case.gameManager.logger.writteDescription('You are already in '+ this.case.gameManager.logger.iconLoggerDefense +'.', this.case.gameManager, this);
          return;
       }
 
@@ -252,7 +257,8 @@ class Character {
 
       this.defenseMode = true;
 
-      this.case.gameManager.logger.writteDescription(this.name + ' is ready to defend himself.', this.case.gameManager, this);
+      this.case.gameManager.soundDefenseMode.play();
+      this.case.gameManager.logger.writteDescription(this.name + ' is ready to '+ this.case.gameManager.logger.iconLoggerDefense + '.', this.case.gameManager, this);
 
       this.case.gameManager.playerTour = opponent;
       MenuManager.updatePlayerTourMenu(this.case.gameManager.playerTour);

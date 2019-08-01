@@ -3,16 +3,44 @@ body {
   background-image: url(/assets/img/background/background1.png);
   height: 100%; }
 
+#body-loading {
+  background-color: white;
+  opacity: 0.8;
+  height: 500px;
+  width: 50%;
+  position: relative;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column; }
+
+#progress-status {
+  position: relative;
+  top: 100px;
+  padding: 10px; }
+
+#progress-step2, #progress-step3, #progress-step4, #progress-step5 {
+  display: none; }
+
+#text-loading {
+  align-self: center; }
+
+#buttonStart {
+  display: none;
+  position: relative;
+  width: 50%;
+  align-self: center;
+  padding: 10px; }
+
 #arena {
   position: relative;
   margin: 0 auto;
   height: 100%;
   width: 600px;
-  padding: 10px 0; }
+  padding: 10px 0;
+  display: none; }
 
 #fight {
   height: 600px;
-  border: 2px black solid;
   overflow: hidden;
   position: relative;
   margin: 0 auto;
@@ -60,7 +88,7 @@ body {
   display: flex;
   flex-direction: column;
   padding: 25px;
-  overflow: hidden;
+  overflow: overlay;
   max-height: 175px;
   max-width: 100%; }
 
@@ -87,10 +115,10 @@ body {
   display: flex;
   align-content: stretch;
   justify-content: space-between;
-  padding-bottom: 10px;
   background-image: url(/assets/img/menu/background-menu1.jpg);
   background-size: contain;
-  filter: drop-shadow(2px 4px 6px black); }
+  filter: drop-shadow(2px 4px 6px black);
+  padding: 10px 10px 20px 10px; }
 
 .player-avatar {
   width: 25%;
@@ -271,10 +299,9 @@ body {
 #endGame-modal {
   display: none;
   position: fixed;
-  right: 0;
-  left: 0;
+  left: calc(50% - 400px / 2);
   z-index: 2000;
-  width: 60%;
+  width: 400px;
   height: 60%;
   margin: 0 auto;
   top: 10%; }

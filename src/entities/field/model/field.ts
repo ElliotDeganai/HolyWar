@@ -13,6 +13,8 @@ class Field {
     cases: Case[][];
     weapons: Weapon[];
     characters: Character[];
+    caseWidht: number;
+    caseHeight: number;
     $el: HTMLElement;
 
     //constructor 

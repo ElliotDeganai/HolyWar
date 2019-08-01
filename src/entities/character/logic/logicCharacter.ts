@@ -40,9 +40,11 @@ abstract class LogicCharacter {
         player.$el = imgChar;
         imgChar.classList.add("player");
         this.setAbsolutePosition(player);
+        
 
         player.$el.style.left = player.absoluteCoord.y + 'px';
         player.$el.style.top = player.absoluteCoord.x + 'px';
+        this.characterAnimation(player, player.absoluteCoord);
 
         field.characters.push(player);
         player.case.gameManager.players.push(player);
@@ -111,10 +113,18 @@ abstract class LogicCharacter {
     }
 
     static setAbsolutePosition(player: Character){
-        let absoluteX = player.case.position.x*player.case.$el.offsetHeight;
-        let absoluteY = player.case.position.y*player.case.$el.offsetWidth;
+
+      let caseOffsetHeight = player.case.gameManager.field.caseHeight;
+      let caseOffsetWidht = player.case.gameManager.field.caseWidht;
+
+        let absoluteX = player.case.position.x*caseOffsetHeight;
+        let absoluteY = player.case.position.y*caseOffsetWidht;
+        console.log(absoluteX);
+        console.log(absoluteY);
         let absolutePositionPlayer = new Coord(absoluteX, absoluteY);
         player.absoluteCoord = absolutePositionPlayer; 
+      console.log(caseOffsetHeight);
+      console.log(caseOffsetWidht);
     }
 
 }

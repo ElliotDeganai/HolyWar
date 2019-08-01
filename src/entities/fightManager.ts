@@ -67,6 +67,9 @@ abstract class FightManager {
             document.querySelectorAll('.' +gameManager.playerTour.name)[0].classList.add("playerTour-fight");
             document.querySelectorAll('.' +gameManager.players[0].name)[0].classList.add("passivePlayer-fight");            
         }
+
+        gameManager.soundBackground.stop();
+        gameManager.soundFightBackground.play();
     }
 
     static setFightMenuDelay(gameManager: GameManager){
