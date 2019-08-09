@@ -51,11 +51,11 @@ abstract class LogicCharacter {
 
         if(player.case.gameManager.players.length === 2){
             if(player.case.position.y < nextPlayer.case.position.y){
-                LogicCharacter.faceOpponent(player);
+                LogicCharacter.turnPlayer(player);
                 player.colorText = "blue";
                 nextPlayer.colorText = "red";
               }else{
-                LogicCharacter.faceOpponent(nextPlayer);  
+                LogicCharacter.turnPlayer(nextPlayer);  
               }
         }
     } 
@@ -87,11 +87,14 @@ abstract class LogicCharacter {
 
     }
 
-    static faceOpponent(player: Character){
+    static turnPlayer(player: Character){
+
+      if(player.direction === 'left'){
         player.$el.style.transform = "rotateY(180deg)";
-        if(player.direction === 'left'){
-            player.direction = 'right';
+        player.direction = 'right';
+            
         }else{
+          player.$el.style.transform = "";
             player.direction = 'left'; 
         }
     }
@@ -107,8 +110,8 @@ abstract class LogicCharacter {
 
           if(playerLeft.case.position.y > playerRight.case.position.y){
 
-            this.faceOpponent(playerLeft);
-            this.faceOpponent(playerRight);
+            this.turnPlayer(playerLeft);
+            this.turnPlayer(playerRight);
           }
     }
 

@@ -163,11 +163,12 @@ class Character {
 
           LogicCharacter.setAbsolutePosition(this);
 
-            LogicCharacter.checkPlayerDirection(this.case.gameManager);
+            //LogicCharacter.checkPlayerDirection(this.case.gameManager);
 
 
           LogicCharacter.characterAnimation(this, this.absoluteCoord);
           LogicCharacter.checkPlayerDirection(this.case.gameManager);
+          
          if(changedWeapon){
             LogicWeapon.paintWeapon(field.cases[caseFrom.position.x][caseFrom.position.y], previousWeapon, field);
          }

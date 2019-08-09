@@ -40,9 +40,11 @@ class GameManager {
 
         this.soundBackground = new Sound(SoundLogic.soundBackground);
         this.soundBackground.$el.id = "audio-background";
+        this.soundBackground.$el.loop = true;
 
         this.soundFightBackground = new Sound(SoundLogic.soundFightBackground);
         this.soundFightBackground.$el.id = "audio-background-fight";
+        this.soundFightBackground.$el.loop = true;
 
         this.soundPickUpWeapon = new Sound(SoundLogic.soundPickUpWeapon);
         this.soundPickUpWeapon.$el.id = "audio-pick-up";
