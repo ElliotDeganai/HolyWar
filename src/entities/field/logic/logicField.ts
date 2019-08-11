@@ -74,26 +74,24 @@ abstract class LogicField {
    }
 
 
-    static setWeapon(field: Field): void {
-       for (let i = 0; i < 2; i++) {
-         let weapon = new Weapon("Mjolnir"+i, 10+i, "/assets/img/weapon/weapon1.png");
-         field.weapons.push(weapon);
+    static setWeapon(field: Field, weapons: any, weaponsNumber: number): void {
+
+       for(let i=0; i<weaponsNumber; i++){
+         let weaponToAdd = new Weapon(weapons[i].name, weapons[i].damage, weapons[i].url_avatar);
+         field.weapons.push(weaponToAdd);
        }
-       for (let i = 0; i < 2; i++) {
-         let weapon = new Weapon("Stormbreaker"+i, 20+i, "/assets/img/weapon/weapon1.png");
-         field.weapons.push(weapon);
-       }
+
        for(let weapon of field.weapons){
           LogicWeapon.paintStartWeapon(field, weapon);
 
        }
     } 
 
-   static setCharacters(field: Field): void {
-      LogicCharacter.paintStartCharacters(field, "Exterminator", "/assets/img/characters/avatar1.png");
-      
-      LogicCharacter.paintStartCharacters(field, "Predator", "/assets/img/characters/avatar2.png");
-      console.log(field.characters);
+   static setCharacters(field: Field, characters: any): void {
+
+      for(let character of characters){
+         LogicCharacter.paintStartCharacters(field, character.name, character.url_avatar);
+      }
    }
 }
 

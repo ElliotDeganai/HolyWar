@@ -200,8 +200,6 @@ class Character {
 
           LogicCharacter.setAbsolutePosition(this);
 
-            //LogicCharacter.checkPlayerDirection(this.case.gameManager);
-
 
           LogicCharacter.characterAnimation(this, this.absoluteCoord);
           LogicCharacter.checkPlayerDirection(this.case.gameManager);

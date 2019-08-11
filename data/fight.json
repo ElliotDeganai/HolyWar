@@ -1,7 +1,52 @@
 
 {
-    "img_field_url": {
-        "blocked": ["../assets/img/blocked-field/5.png", "../assets/img/blocked-field/6.png", "../assets/img/blocked-field/9.png"],
-        "non_blocked": ["../assets/img/blocked-field/3.png", "../assets/img/blocked-field/7.png", "../assets/img/blocked-field/8.png"]
-        }
+
+        "general":[
+            {
+            "field_dimension_x": 10,
+            "field_dimension_y": 10,
+            "weapons_number": 4
+            }
+        ],
+
+            "players": [
+                {
+                "id": 1,
+                "name": "Exterminator",
+                "url_avatar": "/assets/img/characters/avatar1.png"
+                },
+                {
+                "id": 2,
+                "name": "Predator",
+                "url_avatar": "/assets/img/characters/avatar2.png"
+                }
+            ],
+
+            "weapons": [
+                {
+                "id": 1,
+                "name": "Shuriken",
+                "url_avatar": "/assets/img/weapon/weapon1.png",
+                "damage": 11
+                },
+                {
+                "id": 2,
+                "name": "Kunai",
+                "url_avatar": "/assets/img/weapon/weapon1.png",
+                "damage": 15
+                },
+                {
+                "id": 3,
+                "name": "Axe",
+                "url_avatar": "/assets/img/weapon/weapon1.png",
+                "damage": 20
+                },
+                {
+                "id": 4,
+                "name": "Mjolnir",
+                "url_avatar": "/assets/img/weapon/weapon1.png",
+                "damage": 30
+                }
+            ]
+        
 }

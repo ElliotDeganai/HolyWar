@@ -11,6 +11,7 @@ import Logger from "./logger";
 import MenuManager from "./menuManager";
 import Sound from "./sound/model/sound";
 import SoundLogic from "./sound/logic/logicSound";
+import HttpHelper from "../helpers/httpHelper";
 
 class GameManager {
     field: Field;
@@ -26,6 +27,7 @@ class GameManager {
     soundPickUpWeapon: Sound;
     soundDefenseMode: Sound;
     soundAttack: Sound;
+    parameters: any;
 
     $el: HTMLElement;
 
@@ -64,13 +66,15 @@ class GameManager {
         }
     }
 
-    startGame() {
+    startGame(reponse: any) {
+
+        let gameParameters = JSON.parse(reponse);
 
         let loadingCount = 0;
         this.logger.writteDescription('starting game...', this);
         console.log('starting game...');
 
-        let field = LogicField.generateMap(10, 10);
+        let field = LogicField.generateMap(gameParameters.general[0].field_dimension_x, gameParameters.general[0].field_dimension_y);
         
 
         this.field = field;
@@ -87,9 +91,9 @@ class GameManager {
         document.getElementById('progress-step2').style.display = 'block';
         setTimeout(function(){return;}, 5000);
 
-        LogicField.setWeapon(field);
+        LogicField.setWeapon(field, gameParameters.weapons, gameParameters.general[0].weapons_number);
 
-        LogicField.setCharacters(field);
+        LogicField.setCharacters(field, gameParameters.players);
         loadingCount = 60;
         setTimeout(function(){return;}, 5000);
         document.getElementById('progress-step2').style.display = 'none';
