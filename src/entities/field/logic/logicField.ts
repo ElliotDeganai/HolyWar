@@ -15,16 +15,21 @@ abstract class LogicField {
     * @param x 
     * @param y 
     */
+
+   static calculateCaseDimension(elementArena: HTMLElement, elementFight: HTMLElement,field: Field){
+      let arenaStyle = getComputedStyle(elementArena);
+      let fightStyle = getComputedStyle(elementFight);
+      let fightEltWidth = parseInt(arenaStyle.width, 10);
+      let fightEltHeight = parseInt(fightStyle.height, 10);
+      field.caseHeight = fightEltWidth/field.size.y;
+      field.caseWidht = fightEltHeight/field.size.x;
+   }
+
    static generateMap(x: number, y: number): Field {
       let totalCases = x * y;
       let blockedCases = Math.round(totalCases / 6);
       let field: Field = new Field(x, y);
-      let arenaStyle = getComputedStyle(document.getElementById("arena"));
-      let fightStyle = getComputedStyle(document.getElementById("fight"));
-      let fightEltWidth = parseInt(arenaStyle.width, 10);
-      let fightEltHeight = parseInt(fightStyle.height, 10);
-      field.caseHeight = fightEltWidth/y;
-      field.caseWidht = fightEltHeight/x;
+      LogicField.calculateCaseDimension(document.getElementById("arena"), document.getElementById("fight"),field);
 
       for (let col = 0; col < x; col++) {
          field.cases[col] = [];

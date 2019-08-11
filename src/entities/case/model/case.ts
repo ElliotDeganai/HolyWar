@@ -73,6 +73,22 @@ class Case {
         LogicWeapon.paintWeapon(this, weapon, field);
     }
 
+    areCasesAlignedX(caseToCheck: Case): boolean{
+        if(this.position.x === caseToCheck.position.x){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    areCasesAlignedY(caseToCheck: Case): boolean{
+        if(this.position.y === caseToCheck.position.y){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     setEl(element: HTMLElement): HTMLElement {
         this.$el = element;
 

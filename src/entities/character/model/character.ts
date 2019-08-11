@@ -132,6 +132,43 @@ class Character {
       return allBlocked;
    }
 
+   getCasesOnTheWay(caseToReach: Case, field: Field): Array<Case>{
+      let casePlayer = this.case;
+      let casePlayerX = casePlayer.position.x;
+      let casePlayerY = casePlayer.position.y;
+      let caseToReachX = caseToReach.position.x;
+      let caseToReachY = caseToReach.position.y;
+      let casesOnTheWay = [];
+      let caseTemp: Case;
+
+      if(casePlayer.areCasesAlignedX(caseToReach)){
+         if(casePlayerX < caseToReachX){
+            for(let i=casePlayerX; i<=caseToReachX; i++){
+               caseTemp = field.cases[i][casePlayerY];
+               casesOnTheWay.push(caseTemp);
+            }
+         }else{
+            for(let i=caseToReachX; i<=casePlayerX; i++){
+               caseTemp = field.cases[i][casePlayerY];
+               casesOnTheWay.push(caseTemp);
+            }  
+         }
+      }else{
+         if(casePlayerY < caseToReachY){
+            for(let j=casePlayerY; j<=caseToReachY; j++){
+               caseTemp = field.cases[casePlayerX][j];
+               casesOnTheWay.push(caseTemp);
+            }
+         }else{
+            for(let j=caseToReachY; j<=casePlayerY; j++){
+               caseTemp = field.cases[casePlayerX][j];
+               casesOnTheWay.push(caseTemp);
+            }  
+         }
+      }
+      return casesOnTheWay;
+   }
+
    moveTo(field: Field, caseToMove: Case){
 
       if(caseToMove.gameManager.isFinished === true){

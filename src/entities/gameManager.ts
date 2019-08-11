@@ -121,10 +121,20 @@ class GameManager {
 
         GameManager.setStartButton(this);
         document.getElementById("buttonStart").style.display = "block";
+
+        GameManager.setAutoResize(this);
     }
 
-    launchGame(){
+    static setAutoResize(gameManager: GameManager){
+        window.onresize = () => {
+            LogicField.calculateCaseDimension(document.getElementById("arena"), document.getElementById("fight"),gameManager.field);
 
+            for(let player of gameManager.players){
+            LogicCharacter.setAbsolutePosition(player);
+          LogicCharacter.characterAnimation(player, player.absoluteCoord);
+          LogicCharacter.checkPlayerDirection(player.case.gameManager);
+            }
+        };
     }
 
     static setStartButton(gameManager: GameManager){

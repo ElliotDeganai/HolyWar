@@ -122,12 +122,10 @@ abstract class LogicCharacter {
 
         let absoluteX = player.case.position.x*caseOffsetHeight;
         let absoluteY = player.case.position.y*caseOffsetWidht;
-        console.log(absoluteX);
-        console.log(absoluteY);
+        
         let absolutePositionPlayer = new Coord(absoluteX, absoluteY);
         player.absoluteCoord = absolutePositionPlayer; 
-      console.log(caseOffsetHeight);
-      console.log(caseOffsetWidht);
+
     }
 
 }

@@ -12,24 +12,36 @@ body {
   margin: 0 auto;
   display: flex;
   flex-direction: column; }
+  @media all and (max-width: 500px) {
+    #body-loading {
+      height: 300px; } }
 
 #progress-status {
   position: relative;
-  top: 100px;
+  top: 30%;
   padding: 10px; }
+  @media all and (max-width: 500px) {
+    #progress-status {
+      top: 45%; } }
 
 #progress-step2, #progress-step3, #progress-step4, #progress-step5 {
   display: none; }
 
 #text-loading {
   align-self: center; }
+  @media all and (max-width: 500px) {
+    #text-loading {
+      font-size: 1.5rem; } }
 
 #buttonStart {
   display: none;
   position: relative;
-  width: 50%;
   align-self: center;
-  padding: 10px; }
+  padding: 10px;
+  margin: 10px; }
+  @media all and (max-width: 500px) {
+    #buttonStart {
+      font-size: 0.8rem; } }
 
 #arena {
   position: relative;
@@ -38,6 +50,9 @@ body {
   width: 600px;
   padding: 10px 0;
   display: none; }
+  @media all and (max-width: 500px) {
+    #arena {
+      width: 400px; } }
 
 #fight {
   height: 600px;
@@ -47,17 +62,26 @@ body {
   top: 5px;
   bottom: 20px;
   box-shadow: 0 0 20px black; }
+  @media all and (max-width: 500px) {
+    #fight {
+      height: 400px; } }
 
 .fight-mode {
+  -webkit-filter: brightness(50%);
   filter: brightness(50%); }
 
 #fight-menu {
   display: none;
-  width: 380px;
+  width: 379.74684px;
   position: absolute;
-  left: calc(50% - 380px / 2);
+  left: calc(50% - 379.74684px / 2);
   top: 2%;
   z-index: 50; }
+  @media all and (max-width: 500px) {
+    #fight-menu {
+      width: 253.16456px;
+      left: calc(50% - 253.16456px / 2);
+      top: 5%; } }
 
 .character-to-fight {
   display: flex;
@@ -73,6 +97,9 @@ body {
   margin: auto;
   position: relative;
   color: white; }
+  @media all and (max-width: 500px) {
+    #action-button, #actions {
+      font-size: 0.75rem !important; } }
 
 .fight-menu-table {
   position: absolute;
@@ -108,6 +135,7 @@ body {
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
+  -webkit-filter: brightness(150%);
   filter: brightness(150%); }
 
 .activity-item {
@@ -135,8 +163,10 @@ body {
   justify-content: space-between;
   background-image: url(/assets/img/menu/background-menu1.jpg);
   background-size: contain;
+  -webkit-filter: drop-shadow(2px 4px 6px black);
   filter: drop-shadow(2px 4px 6px black);
-  padding: 10px 10px 20px 10px; }
+  padding: 10px 10px 20px 10px;
+  position: relative; }
 
 .player-avatar {
   width: 25%; }
@@ -159,13 +189,15 @@ body {
   display: flex;
   flex-direction: column;
   position: absolute;
-  left: 16%; }
+  left: 16%;
+  top: 5px; }
 
 .info2 {
   display: flex;
   flex-direction: column;
   position: absolute;
-  right: 16%; }
+  right: 16%;
+  top: 5px; }
 
 .player-life, .player-weapon {
   float: left; }
@@ -174,11 +206,17 @@ body {
   display: flex;
   align-content: stretch;
   font-weight: bold; }
+  @media all and (max-width: 500px) {
+    .life-info, .weapon-info {
+      font-size: small; } }
 
 .player-name-info {
   font-weight: bold;
   display: flex;
   font-size: x-large; }
+  @media all and (max-width: 500px) {
+    .player-name-info {
+      font-size: medium; } }
 
 .high-life-level {
   color: green;
@@ -197,6 +235,9 @@ body {
 
 .avatar-img img {
   max-height: 60px; }
+  @media all and (max-width: 500px) {
+    .avatar-img img {
+      max-height: 30px; } }
 
 .character-to-fight img {
   max-height: 60px;
@@ -232,6 +273,7 @@ body {
   max-width: 100%; }
 
 #btnAttack:hover, #btnDefense:hover {
+  -webkit-filter: brightness(150%);
   filter: brightness(150%);
   transform: scale(1.2, 1.2);
   cursor: pointer; }
@@ -248,6 +290,9 @@ body {
 
 .playerTour-fight img {
   max-height: 150px !important; }
+  @media all and (max-width: 500px) {
+    .playerTour-fight img {
+      max-height: 100px !important; } }
 
 .passivePlayer-fight img {
   max-height: 50px !important; }
@@ -260,9 +305,13 @@ body {
 
 .playerTour {
   animation: playerTourFloat 0.7s linear infinite;
+  -webkit-filter: brightness(150%);
   filter: brightness(150%); }
   .playerTour img {
     max-height: 65px; }
+    @media all and (max-width: 500px) {
+      .playerTour img {
+        max-height: 35px; } }
 
 @keyframes playerTourFloat {
   from {
@@ -322,23 +371,31 @@ body {
   height: 60%;
   margin: 0 auto;
   top: 10%; }
+  @media all and (max-width: 500px) {
+    #endGame-modal {
+      left: calc(50% - 266.66667px / 2);
+      width: 266.66667px; } }
 
 #endGame-img-table {
   position: absolute;
   width: 100%;
-  height: 125%; }
+  height: 110%; }
+  @media all and (max-width: 500px) {
+    #endGame-img-table {
+      height: 100%; } }
 
 #endGame-img-banner {
   position: absolute;
   width: 100%; }
 
 #endGame-img-reload {
-  max-height: 15%; }
+  max-height: 70px; }
 
 #endGame-img-reload img {
-  max-height: 15%; }
+  height: 70px; }
 
 #endGame-img-reload:hover {
+  -webkit-filter: brightness(150%);
   filter: brightness(150%);
   cursor: pointer; }
 
@@ -346,13 +403,16 @@ body {
   color: white;
   margin: auto;
   font-size: larger; }
+  @media all and (max-width: 500px) {
+    #winner {
+      font-size: small; } }
 
 #winner-info {
   display: flex;
   flex-direction: column;
   position: relative;
   margin: auto;
-  top: 30%;
+  top: 20%;
   justify-content: center;
   align-items: center; }
 
@@ -361,6 +421,9 @@ body {
 
 #winner-img img {
   max-height: 200px; }
+  @media all and (max-width: 500px) {
+    #winner-img img {
+      max-height: 150px; } }
 
 #darkener {
   position: absolute;
@@ -372,6 +435,7 @@ body {
   height: 100%;
   z-index: 1500;
   display: none;
+  -webkit-filter: brightness(0.5);
   filter: brightness(0.5);
   background-color: darkgray;
   opacity: 0.5; }
@@ -382,14 +446,18 @@ body {
   display: flex;
   background-image: url("/assets/img/normal-field/tile-2D.png");
   background-size: cover;
-  background-position: 50% 50%; }
+  background-position: 50% 50%;
+  box-shadow: 0 0 1px green; }
   .case.blocked {
     background-image: url("/assets/img/blocked-field/tile-2D.png"); }
   .case.case-reachable {
+    -webkit-filter: contrast(200%);
     filter: contrast(200%);
+    transition-property: -webkit-filter;
     transition-property: filter;
     transition-delay: 1.5s; }
   .case:not(.blocked):hover {
+    -webkit-filter: brightness(150%) !important;
     filter: brightness(150%) !important; }
 
 .row-map {
@@ -424,3 +492,7 @@ body {
 #activity-item-list .system {
   color: #413f3f;
   align-self: center; }
+
+@media all and (max-width: 500px) {
+  #activity-item-list {
+    font-size: 0.75rem; } }

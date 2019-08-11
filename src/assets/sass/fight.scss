@@ -1,85 +1,166 @@
+$widhtBreaker: (
+  "large": 1200px,
+  "medium": 992px,
+  "small": 768px,
+  "extra-small": 500px
+);
+
+$prefixes-by-browser: ("firefox": moz, "safari": webkit, "ie": ms, "opera": o);
+
+
+
 body {
     font-family: 'Montserrat',sans-serif!important;
     background-image: url(/assets/img/background/background1.png);
     height: 100%;
 }
 
-$bodyLoadingHeight: 500px;
+
+$bodyLoadingHeight: (
+  "large": 500px,
+  "small": 300px
+);
+
+//$bodyLoadingHeight: $bodyLoadingHeight-#{normal};
 $bodyLoadingBackgroundColor: white;
 #body-loading{
   background-color: $bodyLoadingBackgroundColor;
   opacity: 0.8;
-  height: $bodyLoadingHeight;
+  height: map-get($bodyLoadingHeight, "large");
   width: 50%;
   position: relative;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+
+  @media all and (max-width: map-get($widhtBreaker, "extra-small")) {
+    height: map-get($bodyLoadingHeight, "small");
+  }
 }
 
-$progressStatusTop: 50%;
+$progressStatusTop: (
+  "large": 30%,
+  "small": 45%
+);
+
 $progressStatusPadding: 10px;
 #progress-status{
   position: relative;
-  top: $progressStatusTop;
+  top: map-get($progressStatusTop, "large");
   padding: $progressStatusPadding;
+
+  @media all and (max-width: map-get($widhtBreaker, "extra-small")) {
+    top: map-get($progressStatusTop, "small");
+  }
 }
 
 #progress-step2, #progress-step3, #progress-step4, #progress-step5{
   display: none;
 }
 
+$textLoadingFontSize: (
+  "large": 2.5rem,
+  "small": 1.5rem
+);
+
 #text-loading{
   align-self: center;
+
+
+  @media all and (max-width: map-get($widhtBreaker, "extra-small")) {
+    font-size: map-get($textLoadingFontSize, "small");
+  }
 }
 
 
+$buttonStartFontSize: (
+  "large": 1.25rem,
+  "small": 0.80rem
+);
+
 $buttonStartPadding: 10px;
+$buttonStartMargin: 10px;
 #buttonStart{
   display: none;
   position: relative;
-  width: 50%;
+  //width: 50%;
   align-self: center;
   padding: $buttonStartPadding;
+  margin: $buttonStartMargin;
+
+  @media all and (max-width: map-get($widhtBreaker, "extra-small")) {
+    font-size: map-get($buttonStartFontSize, "small");
+  }
 }
 
-$arenaWidht: 600px;
+$arenaWidht: (
+  "large": 600px,
+  "small": 400px
+);
+
 $arenaBackgroundColor: rgb(231, 241, 241);
 #arena {
   position: relative;
   margin: 0 auto;
   height: 100%;
-  width: $arenaWidht;
+  width: map-get($arenaWidht, "large");
   padding: 10px 0;
   display: none;
+
+  @media all and (max-width: map-get($widhtBreaker, "extra-small")) {
+    width: map-get($arenaWidht, "small");
+  }
 }
 
-$fightHeight: $arenaWidht;
+$fightHeight: (
+  "large": map-get($arenaWidht, "large"),
+  "small": map-get($arenaWidht, "small")
+);
+
 $fightTop: 5px;
 $fightBottom: 20px;
 #fight{
-    height: $fightHeight;
+    height: map-get($fightHeight, "large");
     overflow: hidden;
     position: relative;
     margin: 0 auto;
     top: $fightTop;
     bottom: $fightBottom;
     box-shadow: 0 0 20px black;
+
+    @media all and (max-width: map-get($widhtBreaker, "extra-small")) {
+      height: map-get($fightHeight, "small");
+    }
   }
 
   .fight-mode{
+    -webkit-filter: brightness(50%);
     filter: brightness(50%);
   }
 
-  $fightMenuWidth: 380px;
-  $fightMenuTop: 2%;
+  $fightMenuWidth: (
+  "large": map-get($arenaWidht, "large")/1.58,
+  "small": map-get($arenaWidht, "small")/1.58
+);
+
+$fightMenuTop: (
+  "large": 2%,
+  "small": 5%
+);
+
   #fight-menu {
     display: none;
-    width: $fightMenuWidth;
+    width: map-get($fightMenuWidth, "large");
     position: absolute;
-    left: calc(50% - #{$fightMenuWidth} / 2);
-    top:  $fightMenuTop;
+    left: calc(50% - #{map-get($fightMenuWidth, "large")} / 2);
+    top: map-get($fightMenuTop, "large");
     z-index: 50;
+
+    @media all and (max-width: map-get($widhtBreaker, "extra-small")) {
+      width: map-get($fightMenuWidth, "small");
+      left: calc(50% - #{map-get($fightMenuWidth, "small")} / 2);
+      top: map-get($fightMenuTop, "small");
+    }
   }
 
   .character-to-fight{
@@ -98,6 +179,10 @@ $fightBottom: 20px;
     margin: auto;
     position: relative;
     color: $colorActionButton;
+
+    @media all and (max-width: map-get($widhtBreaker, "extra-small")) {
+      font-size: 0.75rem !important;
+    }
   }
 
   .fight-menu-table{
@@ -144,6 +229,7 @@ $fightBottom: 20px;
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
+  -webkit-filter: brightness(150%);
   filter: brightness(150%); 
 }
 
@@ -182,8 +268,10 @@ $fightBottom: 20px;
     justify-content: space-between;
     background-image: url(/assets/img/menu/background-menu1.jpg);
     background-size: contain;
+    -webkit-filter: drop-shadow(2px 4px 6px black);
     filter: drop-shadow(2px 4px 6px black);
     padding: 10px 10px 20px 10px;
+    position: relative;
   }
 
   .player-avatar{
@@ -214,6 +302,7 @@ $fightBottom: 20px;
     flex-direction: column;
     position: absolute;
     left: 16%;
+    top: 5px;
   }
 
   .info2{
@@ -221,22 +310,41 @@ $fightBottom: 20px;
     flex-direction: column;
     position: absolute;
     right: 16%;
+    top: 5px;
   }
 
   .player-life, .player-weapon{
     float: left;
   }
 
+  $lifeWeaponInfoFontSize: (
+  "large": medium,
+  "small": small
+);
+
   .life-info, .weapon-info{
     display: flex;
     align-content: stretch;
     font-weight: bold;
+
+    @media all and (max-width: map-get($widhtBreaker, "extra-small")) {
+      font-size: map-get($lifeWeaponInfoFontSize, "small");
+    }
   }
+
+  $playerNameInfoFontSize: (
+  "large": x-large,
+  "small": medium
+);
 
   .player-name-info{
     font-weight: bold;
     display: flex;
-    font-size: x-large;
+    font-size: map-get($playerNameInfoFontSize, "large");
+
+    @media all and (max-width: map-get($widhtBreaker, "extra-small")) {
+      font-size: map-get($playerNameInfoFontSize, "small");
+    }
   }
 
 
@@ -259,10 +367,17 @@ $fightBottom: 20px;
     text-shadow: 2px 2px 4px #000000;
   }
 
+  $avatarImg-ImgMaxHeight: (
+  "large": 60px,
+  "small": 30px
+);
 
-$avatarImg-ImgMaxHeight: 60px; 
   .avatar-img img {
-    max-height: $avatarImg-ImgMaxHeight;
+    max-height: map-get($avatarImg-ImgMaxHeight, "large");
+
+    @media all and (max-width: map-get($widhtBreaker, "extra-small")) {
+      max-height: map-get($avatarImg-ImgMaxHeight, "small");
+    }
   }
 
 
@@ -310,6 +425,7 @@ $avatarImg-ImgMaxHeight: 60px;
   }
 
   #btnAttack:hover, #btnDefense:hover { 
+    -webkit-filter: brightness(150%);
     filter: brightness(150%);
     transform: scale(1.2,1.2);
     cursor: pointer;
@@ -330,9 +446,17 @@ $avatarImg-ImgMaxHeight: 60px;
     position: absolute;
   }
 
-  $playerTourFight-Img: 150px;
+  $playerTourFight-Img: (
+    "large": 150px,
+    "small": 100px
+  );
+
   .playerTour-fight img{
-    max-height: $playerTourFight-Img !important; 
+    max-height: map-get($playerTourFight-Img, "large") !important; 
+
+    @media all and (max-width: map-get($widhtBreaker, "extra-small")) {
+      max-height: map-get($playerTourFight-Img, "small") !important;
+    }
   }
 
   $passivePlayerFight-ImgMaxHeight: 50px;
@@ -348,14 +472,25 @@ $avatarImg-ImgMaxHeight: 60px;
     overflow: hidden;
   }
 
-  $playerTour-ImgMaxHeight: 65px;
+  $playerTour-ImgMaxHeight: (
+    "large": 65px,
+    "small": 35px
+  );
+
   .playerTour{
     animation: playerTourFloat 0.7s linear infinite;
+    -webkit-filter: brightness(150%);
     filter: brightness(150%);
 
     & img{
-      max-height: $playerTour-ImgMaxHeight;
+      max-height: map-get($playerTour-ImgMaxHeight, "large");
+
+      @media all and (max-width: map-get($widhtBreaker, "extra-small")) {
+        max-height: map-get($playerTour-ImgMaxHeight, "small");
+      }
     }
+
+
   }
 
 
@@ -419,22 +554,40 @@ $avatarImg-ImgMaxHeight: 60px;
     animation: heartBeat 0.3s linear infinite;
   }
 
-  $endGameModalWidth: $arenaWidht/1.5;
+  $endGameModalWidth: (
+    "large": map-get($arenaWidht, "large")/1.5,
+    "small": map-get($arenaWidht, "small")/1.5
+  );
+
   #endGame-modal{
     display: none;
     position: fixed;
-    left: calc(50% - #{$endGameModalWidth} / 2);
+    left: calc(50% - #{map-get($endGameModalWidth, "large")} / 2);
     z-index: 2000;
-    width: $endGameModalWidth;
+    width: map-get($endGameModalWidth, "large");
     height: 60%;
     margin: 0 auto;
     top: 10%;
+
+    @media all and (max-width: map-get($widhtBreaker, "extra-small")) {
+      left: calc(50% - #{map-get($endGameModalWidth, "small")} / 2);
+      width: map-get($endGameModalWidth, "small");
+    }
   }
+
+  $endeGameImgTableHeight: (
+    "large": 110%,
+    "small": 100%
+  );
 
   #endGame-img-table{
     position: absolute;
     width: 100%;
-    height: 125%;
+    height: map-get($endeGameImgTableHeight, "large");
+
+    @media all and (max-width: map-get($widhtBreaker, "extra-small")) {
+      height: map-get($endeGameImgTableHeight, "small");
+    }
   }
 
   #endGame-img-banner{
@@ -443,22 +596,32 @@ $avatarImg-ImgMaxHeight: 60px;
   }
 
   #endGame-img-reload{
-    max-height: 15%;
+    max-height: 70px;
   }
 
   #endGame-img-reload img{
-    max-height: 15%;
+    height: 70px;
   }
 
   #endGame-img-reload:hover { 
+    -webkit-filter: brightness(150%);
     filter: brightness(150%);
     cursor: pointer;
   }
 
+  $endGameWinnerFontSize: (
+    "large": larger,
+    "small": small
+  );
+
   #winner{
     color: white;
     margin: auto;
-    font-size: larger;
+    font-size: map-get($endGameWinnerFontSize, "large");
+
+    @media all and (max-width: map-get($widhtBreaker, "extra-small")) {
+      font-size: map-get($endGameWinnerFontSize, "small");
+    }
   }
 
   #winner-info{
@@ -466,7 +629,7 @@ $avatarImg-ImgMaxHeight: 60px;
     flex-direction: column;
     position: relative;
     margin: auto;
-    top: 30%;
+    top: 20%;
     justify-content: center;
     align-items: center;
   }
@@ -476,9 +639,17 @@ $avatarImg-ImgMaxHeight: 60px;
 
 }
 
-$winnerImg-ImgMaxHeight: 200px;
+$winnerImg-ImgMaxHeight: (
+  "large": 200px,
+  "small": 150px
+);
+
 #winner-img img{
-  max-height: $winnerImg-ImgMaxHeight;
+  max-height: map-get($winnerImg-ImgMaxHeight, "large");
+
+  @media all and (max-width: map-get($widhtBreaker, "extra-small")) {
+    max-height: map-get($winnerImg-ImgMaxHeight, "small");
+  }
 }
 
 #darkener{
@@ -491,6 +662,7 @@ $winnerImg-ImgMaxHeight: 200px;
   height: 100%;
   z-index: 1500;
   display: none;
+  -webkit-filter: brightness(0.5);
   filter: brightness(0.5);
   background-color: darkgray;
   opacity: 0.5;
@@ -503,19 +675,22 @@ $winnerImg-ImgMaxHeight: 200px;
     background-image: url('/assets/img/normal-field/tile-2D.png');
     background-size: cover;
     background-position: 50% 50%;
-    //box-shadow: 0 0 1px green;
+    box-shadow: 0 0 1px green;
 
     &.blocked {
       background-image: url('/assets/img/blocked-field/tile-2D.png');
     }
 
     &.case-reachable {
+      -webkit-filter: contrast(200%);
       filter: contrast(200%);
+      transition-property: -webkit-filter;
       transition-property: filter;
       transition-delay: 1.5s;
     }
 
     &:not(.blocked):hover {
+      -webkit-filter: brightness(150%) !important;
       filter: brightness(150%) !important;
     }
 }
@@ -548,6 +723,8 @@ $delay-HoverFontSize: 36px;
   transition-duration: 1s;
 }
 
+$activityItemListFontSizeSmall: 0.75rem;
+
 $activityItemList-player0Color: #1c2a48;
 #activity-item-list .player0{
   color: $activityItemList-player0Color;
@@ -564,4 +741,10 @@ $activityItemList-SystemColor: rgb(65, 63, 63);
 #activity-item-list .system{
   color: $activityItemList-SystemColor;
   align-self: center;
+}
+
+#activity-item-list{
+@media all and (max-width: map-get($widhtBreaker, "extra-small")) {
+  font-size: $activityItemListFontSizeSmall;
+}
 }
