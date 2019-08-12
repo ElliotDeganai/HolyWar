@@ -20,7 +20,7 @@ abstract class LogicWeapon {
         imgWeapon.style.zIndex = "20";
         spanElt.appendChild(imgWeapon);
         document.getElementById(caseWeapon.positionString).appendChild(spanElt);
-        field.cases[caseWeapon.position.x][caseWeapon.position.y].isAvailable = false;
+        //field.cases[caseWeapon.position.x][caseWeapon.position.y].isAvailable = false;
         field.cases[caseWeapon.position.x][caseWeapon.position.y].weapon = weapon;
         weapon.$el = spanElt;
         

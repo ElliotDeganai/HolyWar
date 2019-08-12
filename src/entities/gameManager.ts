@@ -91,9 +91,11 @@ class GameManager {
         document.getElementById('progress-step2').style.display = 'block';
         setTimeout(function(){return;}, 5000);
 
-        LogicField.setWeapon(field, gameParameters.weapons, gameParameters.general[0].weapons_number);
 
         LogicField.setCharacters(field, gameParameters.players);
+        LogicField.setWeapon(field, gameParameters.weapons, gameParameters.general[0].weapons_number);
+
+        
         loadingCount = 60;
         setTimeout(function(){return;}, 5000);
         document.getElementById('progress-step2').style.display = 'none';
@@ -127,6 +129,7 @@ class GameManager {
         document.getElementById("buttonStart").style.display = "block";
 
         GameManager.setAutoResize(this);
+        console.log(this.field);
     }
 
     static setAutoResize(gameManager: GameManager){
@@ -158,12 +161,15 @@ class GameManager {
     } 
 
     showReachableCase(){
+
         for(let col=0; col < this.field.size.x; col++){
             for(let row=0; row < this.field.size.y; row++){
                 let caseToCheck = this.field.cases[col][row];
+                
             if(this.playerTour.isCaseReachable(caseToCheck, this.field) === true && caseToCheck !== this.playerTour.case){
                 caseToCheck.$el.classList.add("case-reachable");
             }
+            
         }
     }
     }

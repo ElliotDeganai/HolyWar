@@ -9,6 +9,7 @@ abstract class LogicCharacter {
 
     static paintStartCharacters(field: Field, nameCharacter: string, iconUrl: string): void {
         let player = new Character(nameCharacter, iconUrl, field.getAvailableRandomCase());
+        
 
         let nextPlayer = field.characters.filter((nextPlayer) => {
             return (nextPlayer !== player);
@@ -19,13 +20,14 @@ abstract class LogicCharacter {
 
         if (typeof field.characters[0] !== 'undefined') {
 
-            while(field.characters[0].case.casesAdjacent(player.case) || player.isClosedCasesBlocked()){
+            while(player.case.casesAdjacent(nextPlayer.case) || player.isClosedCasesBlocked()){
                 player = new Character(nameCharacter, iconUrl, field.getAvailableRandomCase());
             }
 
           }
+          field.cases[player.case.position.x][player.case.position.y].isAvailable = false;
 
-        field.cases[player.case.position.x][player.case.position.y].isAvailable = false;
+        //field.cases[player.case.position.x][player.case.position.y].isAvailable = false;
         let imgChar: HTMLImageElement = document.createElement("img");
         let spanElt = document.createElement("span");
 

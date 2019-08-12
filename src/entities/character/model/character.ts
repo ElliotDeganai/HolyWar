@@ -95,7 +95,7 @@ class Character {
       let deltaY = Math.abs(caseToReach.position.y - this.case.position.y);
       if( deltaX <= 3 &&  deltaY <= 3 ){
          if(caseToReach.position.x === this.case.position.x || caseToReach.position.y === this.case.position.y){
-         if(!caseToReach.isBlocked && !this.isWayBlocked(caseToReach, field)){
+         if(!caseToReach.isBlocked && !this.isWayBlocked(caseToReach, field) && caseToReach.isAvailable){
          return true;
          }else{
             return false
@@ -141,28 +141,28 @@ class Character {
       let casesOnTheWay = [];
       let caseTemp: Case;
 
-      if(casePlayer.areCasesAlignedX(caseToReach)){
+      if(casePlayer.areCasesAlignedY(caseToReach)){
          if(casePlayerX < caseToReachX){
-            for(let i=casePlayerX; i<=caseToReachX; i++){
+            for(let i=casePlayerX+1; i<=caseToReachX; i++){
                caseTemp = field.cases[i][casePlayerY];
-               casesOnTheWay.push(caseTemp);
+               casesOnTheWay.push(field.cases[i][casePlayerY]);
             }
          }else{
-            for(let i=caseToReachX; i<=casePlayerX; i++){
+            for(let i=caseToReachX+1; i<=casePlayerX; i++){
                caseTemp = field.cases[i][casePlayerY];
-               casesOnTheWay.push(caseTemp);
+               casesOnTheWay.push(field.cases[i][casePlayerY]);
             }  
          }
       }else{
          if(casePlayerY < caseToReachY){
-            for(let j=casePlayerY; j<=caseToReachY; j++){
+            for(let j=casePlayerY+1; j<=caseToReachY; j++){
                caseTemp = field.cases[casePlayerX][j];
-               casesOnTheWay.push(caseTemp);
+               casesOnTheWay.push(field.cases[casePlayerX][j]);
             }
          }else{
-            for(let j=caseToReachY; j<=casePlayerY; j++){
+            for(let j=caseToReachY+1; j<=casePlayerY; j++){
                caseTemp = field.cases[casePlayerX][j];
-               casesOnTheWay.push(caseTemp);
+               casesOnTheWay.push(field.cases[casePlayerX][j]);
             }  
          }
       }
@@ -179,6 +179,8 @@ class Character {
       let caseFrom = this.case;
       let previousWeapon = this.weapon;
       let logger = this.case.gameManager.logger;
+      let casesOnTheWay = this.getCasesOnTheWay(caseToMove, field);
+      console.log(casesOnTheWay);
       if(this.isCaseReachable(caseToMove, field)){
 
          let nextPlayerArray = field.characters.filter((nextPlayer) => {
@@ -186,8 +188,11 @@ class Character {
           });
 
           let nextPlayer = nextPlayerArray[0];
-         
+ 
+          field.cases[caseFrom.position.x][caseFrom.position.y].isAvailable = true;
+          field.cases[caseToMove.position.x][caseToMove.position.y].isAvailable = false;
       this.case = caseToMove;
+      
       this.closedCases = this.getClosedCases();
       if(caseToMove.hasWeapon()){
          this.takeWeapon(this.case, field);
@@ -199,6 +204,8 @@ class Character {
       }
 
           LogicCharacter.setAbsolutePosition(this);
+
+            //LogicCharacter.checkPlayerDirection(this.case.gameManager);
 
 
           LogicCharacter.characterAnimation(this, this.absoluteCoord);
@@ -222,8 +229,6 @@ class Character {
          logger.writteDescription("This place is unreachable!!", this.case.gameManager);
          console.log("This place is unreachable!!");
       }
-
-      console.log(field.characters);
    }
    
    attack(){
