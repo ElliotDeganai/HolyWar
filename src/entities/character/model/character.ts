@@ -46,8 +46,7 @@ class Character {
       this.weapon = caseWeapon.weapon;
       caseWeapon.removeWeapon();
       field.cases[caseWeapon.position.x][caseWeapon.position.y].weapon = weaponToDrop;
-      
-      //LogicWeapon.paintWeapon(caseWeapon, weaponToDrop, field);
+
    }
 
    isWayBlocked(caseToReach: Case, field: Field): Boolean{
@@ -90,10 +89,10 @@ class Character {
       }
     }
 
-   isCaseReachable(caseToReach: Case, field: Field){
+   isCaseReachable(caseToReach: Case, field: Field, moveMax: number){
       let deltaX = Math.abs(caseToReach.position.x - this.case.position.x);
       let deltaY = Math.abs(caseToReach.position.y - this.case.position.y);
-      if( deltaX <= 3 &&  deltaY <= 3 ){
+      if( deltaX <= moveMax &&  deltaY <= moveMax ){
          if(caseToReach.position.x === this.case.position.x || caseToReach.position.y === this.case.position.y){
          if(!caseToReach.isBlocked && !this.isWayBlocked(caseToReach, field) && caseToReach.isAvailable){
          return true;
@@ -180,8 +179,7 @@ class Character {
       let previousWeapon = this.weapon;
       let logger = this.case.gameManager.logger;
       let casesOnTheWay = this.getCasesOnTheWay(caseToMove, field);
-      console.log(casesOnTheWay);
-      if(this.isCaseReachable(caseToMove, field)){
+      if(this.isCaseReachable(caseToMove, field, caseToMove.gameManager.parameters.general[0].move_max)){
 
          let nextPlayerArray = field.characters.filter((nextPlayer) => {
             return (nextPlayer !== this.case.gameManager.playerTour);
@@ -204,8 +202,6 @@ class Character {
       }
 
           LogicCharacter.setAbsolutePosition(this);
-
-            //LogicCharacter.checkPlayerDirection(this.case.gameManager);
 
 
           LogicCharacter.characterAnimation(this, this.absoluteCoord);

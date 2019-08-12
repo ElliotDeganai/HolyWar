@@ -113,7 +113,7 @@ class Case {
 
             // Do nothing if player select a Block Case
             if (caseToGo.isBlocked) {
-                this.gameManager.showReachableCase();
+                this.gameManager.showReachableCase(this.gameManager.parameters);
                 return;
             }
             //we get the element target
@@ -121,7 +121,7 @@ class Case {
             this.gameManager.playerTour.moveTo(this.gameManager.field, caseToGo);
 
             
-            this.gameManager.showReachableCase();
+            this.gameManager.showReachableCase(this.gameManager.parameters);
 
     }
 

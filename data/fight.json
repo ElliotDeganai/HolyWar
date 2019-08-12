@@ -5,7 +5,8 @@
             {
             "field_dimension_x": 10,
             "field_dimension_y": 10,
-            "weapons_number": 4
+            "weapons_number": 4,
+            "move_max": 3
             }
         ],
 
