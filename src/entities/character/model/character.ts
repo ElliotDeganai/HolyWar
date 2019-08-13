@@ -56,31 +56,47 @@ class Character {
          let yInit = 0;
          if(this.case.position.y < caseToReach.position.y){
          yInit = this.case.position.y+1;
-         }else{
-            yInit = caseToReach.position.y+1; 
+         let deltaY = Math.abs(this.case.position.y - caseToReach.position.y);
+         for(let row = 0; row < deltaY; row++){
+            if(field.cases[x][yInit+row].isBlocked === true || !field.cases[x][yInit+row].isAvailable){
+               blocked = true;
+            }
+           
          }
-          let deltaY = Math.abs(this.case.position.y - caseToReach.position.y);
-          for(let row = 0; row < deltaY; row++){
-             if(field.cases[x][yInit+row].isBlocked === true){
-                blocked = true;
-             }
-            
-          }
+         }else{
+            yInit = this.case.position.y-1; 
+            let deltaY = caseToReach.position.y - this.case.position.y;
+            for(let row = 0; row > deltaY; row--){
+               if(field.cases[x][yInit+row].isBlocked === true || !field.cases[x][yInit+row].isAvailable){
+                  blocked = true;
+               }
+         }
+      }
+         
+
       }else{
          let xInit = 0;
          let y = this.case.position.y;
          if(this.case.position.x < caseToReach.position.x){
             xInit = this.case.position.x+1;
+            let deltaX = Math.abs(this.case.position.x - caseToReach.position.x);
+            for(let col = 0; col < deltaX; col++){
+               if(field.cases[xInit+col][y].isBlocked === true || !field.cases[xInit+col][y].isAvailable){
+                  blocked = true;
+               }
+              
+            }
          }else{
-            xInit = caseToReach.position.x+1; 
+            xInit = this.case.position.x-1; 
+            let deltaX = caseToReach.position.x - this.case.position.x;
+            for(let col = 0; col > deltaX; col--){
+               if(field.cases[xInit+col][y].isBlocked === true || !field.cases[xInit+col][y].isAvailable){
+                  blocked = true;
+               }
+              
+            }
          }
-          let deltaX = Math.abs(this.case.position.x - caseToReach.position.x);
-          for(let col = 0; col < deltaX; col++){
-             if(field.cases[xInit+col][y].isBlocked === true){
-                blocked = true;
-             }
-            
-          }
+
       }
       if(blocked === true){
          return true;

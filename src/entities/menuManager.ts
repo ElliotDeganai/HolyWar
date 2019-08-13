@@ -84,12 +84,10 @@ abstract class MenuManager {
     static updateInfoLife(player: Character, indicePlayer: number, damage: number){
 
         let previousDamageTourElt = <HTMLDivElement>document.querySelectorAll('#' +player.name+ ' .damageTour')[0];
-        console.log(previousDamageTourElt);
 
         if(previousDamageTourElt !== undefined || previousDamageTourElt !== null){
             
             document.querySelectorAll('#' +player.name+ ' .damage')[0].classList.remove("damageTour");
-            console.log(document.querySelectorAll('#' +player.name+ ' .damage')[0]);
         }
 
         let lifeInfoElt = <HTMLDivElement>document.querySelectorAll('#' +player.name+ ' .life-value')[0];

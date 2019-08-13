@@ -130,7 +130,6 @@ class GameManager {
         document.getElementById("buttonStart").style.display = "block";
 
         GameManager.setAutoResize(this);
-        console.log(this.parameters.general[0].move_max);
     }
 
     static setAutoResize(gameManager: GameManager){
